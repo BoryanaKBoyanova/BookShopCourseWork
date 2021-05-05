@@ -24,10 +24,13 @@
         public int Pages { get; set; }
 
         [Required]
+        public string ImgUrl { get; set; }
+
+        [Required]
         public DateTime PublishedOn { get; set; }
 
         public int PublisherId { get; set; }
-        [Required]
+        
         public Publisher Publisher { get; set; }
 
         public IList<AuthorBook> AuthorBooks { get; set; }

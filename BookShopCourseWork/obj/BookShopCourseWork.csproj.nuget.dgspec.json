@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Dell\\source\\repos\\BookShopCourseWork\\BookShopCourseWork\\BookShopCourseWork.csproj": {}
+    "C:\\Users\\Dell\\Documents\\GitHub\\BookShopCourseWork\\BookShopCourseWork\\BookShopCourseWork.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Dell\\source\\repos\\BookShopCourseWork\\BookShopCourseWork\\BookShopCourseWork.csproj": {
+    "C:\\Users\\Dell\\Documents\\GitHub\\BookShopCourseWork\\BookShopCourseWork\\BookShopCourseWork.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Dell\\source\\repos\\BookShopCourseWork\\BookShopCourseWork\\BookShopCourseWork.csproj",
+        "projectUniqueName": "C:\\Users\\Dell\\Documents\\GitHub\\BookShopCourseWork\\BookShopCourseWork\\BookShopCourseWork.csproj",
         "projectName": "BookShopCourseWork",
-        "projectPath": "C:\\Users\\Dell\\source\\repos\\BookShopCourseWork\\BookShopCourseWork\\BookShopCourseWork.csproj",
+        "projectPath": "C:\\Users\\Dell\\Documents\\GitHub\\BookShopCourseWork\\BookShopCourseWork\\BookShopCourseWork.csproj",
         "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Dell\\source\\repos\\BookShopCourseWork\\BookShopCourseWork\\obj\\",
+        "outputPath": "C:\\Users\\Dell\\Documents\\GitHub\\BookShopCourseWork\\BookShopCourseWork\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -44,6 +44,10 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "Microsoft.AspNet.WebApi.Core": {
+              "target": "Package",
+              "version": "[5.2.7, )"
+            },
             "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
               "target": "Package",
               "version": "[5.0.4, )"

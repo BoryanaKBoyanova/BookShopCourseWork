@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using BookShopCourseWork.Models;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,10 +16,10 @@ namespace BookShopCourseWork.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<Publisher> Publishers { get; set; }
         public DbSet<AuthorBook> AuthorBooks { get; set; }
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
-        {
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer("Server=BB-454;Database=BookShop;Trusted_Connection=True;MultipleActiveResultSets=true");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
