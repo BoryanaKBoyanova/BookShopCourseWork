@@ -66,6 +66,9 @@ namespace BookShopCourseWork
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Book}/{action=Index}/{id?}");
+                    endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Genre}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

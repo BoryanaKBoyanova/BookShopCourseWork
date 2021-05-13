@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BookShopCourseWork.Models;
-using BookShopCourseWork.Models.BookController;
+using BookShopCourseWork.Models.GenreController;
 using BookShopCourseWork.Services.Interfaces;
 using BookShopCourseWork.Services;
 using Microsoft.AspNetCore.Http;
@@ -12,21 +12,22 @@ using System.Net;
 
 namespace BookShopCourseWork.Controllers
 {
-    public class BookController : Controller
+    public class GenreController : Controller
     {
-        private IBookService bookService { get; set; }
-        public BookController()
+        private IGenreService genreService { get; set; }
+        public GenreController()
         {
-            bookService = new BookService();
+            genreService = new GenreService();
         }
+
         [HttpPost]
-        public IActionResult EditBook(EditBook book)
+        public IActionResult AddGenre(Genre genre)
         {
             if (User.Identity.IsAuthenticated)
             {
                 if(ModelState.IsValid)
                 {
-                    return Ok(bookService.EditBook(book));
+                    return Ok(genreService.AddGenre(genre));
                 }
                 else
                 {
@@ -39,32 +40,13 @@ namespace BookShopCourseWork.Controllers
             }
         }
         [HttpPost]
-        public IActionResult CreateBook(Book book, Publisher publisher)
+        public IActionResult DeleteGenre(DeleteGenre genre)
         {
             if (User.Identity.IsAuthenticated)
             {
                 if(ModelState.IsValid)
                 {
-                    return Ok(bookService.CreateBook(book, publisher));
-                }
-                else
-                {
-                    return BadRequest();
-                }
-            }
-            else
-            {
-               return Unauthorized();
-            }
-        }
-        [HttpPost]
-        public IActionResult DeleteBook(DeleteBook book)
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                if(ModelState.IsValid)
-                {
-                    return Ok(bookService.DeleteBook(book));
+                    return Ok(genreService.DeleteGenre(genre));
                 }
                 else
                 {
@@ -76,5 +58,25 @@ namespace BookShopCourseWork.Controllers
                 return Unauthorized();
             }
         }
+        [HttpPost]
+        public IActionResult AddGenreBook(AddGenreBook addGenreBook)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                if(ModelState.IsValid)
+                {
+                    return Ok(genreService.AddGenreBook(addGenreBook));
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            else
+            {
+                return Unauthorized();
+            }
+        }
+
     }
 }
