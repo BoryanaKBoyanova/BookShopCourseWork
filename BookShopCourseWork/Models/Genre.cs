@@ -13,6 +13,6 @@
         [Required]
         public string GenreName { get; set; }
 
-        public IList<GenreBook> GenreBooks { get; set; }
+        public ICollection<Book> Books { get; set; }
     }
 }

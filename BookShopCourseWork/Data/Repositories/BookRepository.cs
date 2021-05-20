@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Entity;
 using System.Threading.Tasks;
 using BookShopCourseWork.Data.Interfaces;
 using BookShopCourseWork.Models;
@@ -15,20 +16,29 @@ namespace BookShopCourseWork.Data.Repositories
         {
             context = new ApplicationDbContext();
         }
-        public bool CreateBook(Book book, Publisher publisher)
+        public bool CreateBook(Book book, Publisher publisher, Author author)
         {
-            if(context.Books.Any(b => b.Title == book.Title))
+            if (context.Books.Any(b => b.Title == book.Title))
             {
                 return false;
             }
             else
             {
-                if(!context.Publishers.Any(p => p.PublisherName == publisher.PublisherName))
+                Publisher pub = context.Publishers.FirstOrDefault(p=>p.PublisherName == publisher.PublisherName);
+                if(pub==null)
                 {
-                    context.Publishers.Add(publisher);
- 
+                    pub = publisher;
                 }
-                book.Publisher = publisher;
+                Author au = context.Authors.FirstOrDefault(a=>a.FirstName == author.FirstName && a.LastName == author.LastName);
+                if(au==null)
+                {
+                    au = author;
+                }
+                book.Authors = new List<Author>();
+                book.Authors.Add(au);
+                book.Genres = new List<Genre>();
+                book.Orders = new List<Order>();
+                book.Publisher = pub;
                 context.Books.Add(book);
                 context.SaveChanges();
                 return true;
@@ -37,7 +47,7 @@ namespace BookShopCourseWork.Data.Repositories
         public bool DeleteBook(DeleteBook book)
         {
             Book b = context.Books.Find(book.BookId);
-            if(b!=null)
+            if (b != null)
             {
                 context.Books.Remove(b);
                 context.SaveChanges();
@@ -51,7 +61,7 @@ namespace BookShopCourseWork.Data.Repositories
         public bool EditBook(EditBook book)
         {
             Book b = context.Books.Find(book.Id);
-            if(b!=null)
+            if (b != null)
             {
                 b.Title = book.Title;
                 b.Description = book.Description;
@@ -64,6 +74,39 @@ namespace BookShopCourseWork.Data.Repositories
             {
                 return false;
             }
+        }
+
+        public List<Book> GetBooksByGenre(string genreName)
+        {
+            Genre genre = context.Genres.Where(g => g.GenreName == genreName).FirstOrDefault<Genre>(); ;
+            if (genre != null)
+            {
+                return context.Books.Include(b => b.Genres).Where(b => b.Genres.Contains(genre)).ToList();
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public List<Author> GetAuthors()
+        {
+            return context.Authors.ToList();
+        }
+        public List<Book> GetAllBooks()
+        {
+            return context.Books
+                     .Select(book => new Book()
+                     {
+                         Id = book.Id,
+                         Title = book.Title,
+                         Description = book.Description,
+                         Price = book.Price,
+                         Pages = book.Pages,
+                         ImgUrl = book.ImgUrl,
+                         PublishedOn = book.PublishedOn,
+                         PublisherId = book.PublisherId,
+                         Authors = book.Authors.Select(author => author).ToList()
+                     }).ToList();
         }
     }
 }

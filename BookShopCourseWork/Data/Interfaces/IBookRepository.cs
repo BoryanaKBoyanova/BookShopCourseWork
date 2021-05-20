@@ -9,11 +9,16 @@ namespace BookShopCourseWork.Data.Interfaces
 {
     interface IBookRepository
     {
-        public bool CreateBook(Book book, Publisher publisher);
+        public bool CreateBook(Book book, Publisher publisher, Author author);
 
         public bool DeleteBook(DeleteBook book);
 
         public bool EditBook(EditBook book);
+
+        public List<Book> GetBooksByGenre(string genreName);
+
+        public List<Author> GetAuthors();
+        public List<Book> GetAllBooks();
 
     }
 }

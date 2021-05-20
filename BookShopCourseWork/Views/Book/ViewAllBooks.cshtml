@@ -1,0 +1,31 @@
+@using BookShopCourseWork.Models;
+@using BookShopCourseWork.ViewModels;
+@model List<Book>
+@{
+    ViewData["Title"] = "View all books";
+}
+<div class="row g-1">
+
+@foreach (Book book in Model.OrderBy(b => b.Id).ToList())
+{
+        <div class="col-md-3 ml-2">
+                    <div class="card p-3">
+                        <div class="text-center"> <img src="@book.ImgUrl" width="200"> </div>
+                        <div class="product-details"> <span class="fw-bold">@book.Title</span>
+                            <span class="font-weight-bold d-block">
+                                @string.Join(", ", book.Authors.Select(a=>a.ToString()).ToArray<string>())
+                            </span>
+                        <span class="font-weight-bold d-block">@book.Price.ToString("0.00")lv.</span>
+                            <div class="buttons d-flex flex-row justify-content-center">
+                                
+                    <button class="btn btn-primary cart-button btn-block text-center"><i class="fa fa-shopping-cart"></i> Add to cart </button>
+                            </div>
+                            
+                        </div>
+                    </div>
+        </div>
+}
+</div>
+
+
+

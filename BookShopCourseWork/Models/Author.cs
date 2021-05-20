@@ -16,6 +16,11 @@
         [Required]
         public string LastName { get; set; }
 
-        public IList<AuthorBook> AuthorBooks { get; set; }
+        public ICollection<Book> Books { get; set; }
+
+        public override string ToString()
+        {
+            return $"{this.FirstName} {this.LastName}";
+        }
     }
 }

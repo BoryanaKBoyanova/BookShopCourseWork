@@ -2,9 +2,9 @@
 {
     enum OrderStatus
     {
-    SENT,
-    PROCESSING,
-    CANCELLED,
-    DELIVERED
+        SENT,
+        PROCESSING,
+        CANCELLED,
+        DELIVERED
     }
 }

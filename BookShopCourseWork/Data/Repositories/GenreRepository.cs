@@ -53,10 +53,8 @@ namespace BookShopCourseWork.Data.Repositories
             }
             else
             {
-                GenreBook gb = new GenreBook();
-                gb.GenreId = g.Id;
-                gb.BookId = b.Id;
-                context.GenreBook.Add(gb);
+                b.Genres = new List<Genre>();
+                b.Genres.Add(g);
                 context.SaveChanges();
                 return true;
             }

@@ -7,6 +7,7 @@ using BookShopCourseWork.Models;
 using BookShopCourseWork.Models.BookController;
 using BookShopCourseWork.Services.Interfaces;
 using BookShopCourseWork.Services;
+using BookShopCourseWork.ViewModels;
 using Microsoft.AspNetCore.Http;
 using System.Net;
 
@@ -18,6 +19,11 @@ namespace BookShopCourseWork.Controllers
         public BookController()
         {
             bookService = new BookService();
+        }
+
+        public IActionResult ViewAllBooks()
+        {
+            return View( bookService.GetAllBooks());
         }
         [HttpPost]
         public IActionResult EditBook(EditBook book)
@@ -39,23 +45,23 @@ namespace BookShopCourseWork.Controllers
             }
         }
         [HttpPost]
-        public IActionResult CreateBook(Book book, Publisher publisher)
+        public IActionResult CreateBook(Book book, Publisher publisher, Author author)
         {
-            if (User.Identity.IsAuthenticated)
-            {
+            //sif (User.Identity.IsAuthenticated)
+            ///{
                 if(ModelState.IsValid)
                 {
-                    return Ok(bookService.CreateBook(book, publisher));
+                    return Ok(bookService.CreateBook(book, publisher, author));
                 }
                 else
                 {
                     return BadRequest();
                 }
-            }
-            else
-            {
-               return Unauthorized();
-            }
+            //}
+            //else
+            //{
+               //return Unauthorized();
+            //}
         }
         [HttpPost]
         public IActionResult DeleteBook(DeleteBook book)

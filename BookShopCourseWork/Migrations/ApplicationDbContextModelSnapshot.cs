@@ -19,6 +19,36 @@ namespace BookShopCourseWork.Migrations
                 .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("AuthorBook", b =>
+                {
+                    b.Property<int>("AuthorsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BooksId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AuthorsId", "BooksId");
+
+                    b.HasIndex("BooksId");
+
+                    b.ToTable("AuthorBook");
+                });
+
+            modelBuilder.Entity("BookGenre", b =>
+                {
+                    b.Property<int>("BooksId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GenresId")
+                        .HasColumnType("int");
+
+                    b.HasKey("BooksId", "GenresId");
+
+                    b.HasIndex("GenresId");
+
+                    b.ToTable("BookGenre");
+                });
+
             modelBuilder.Entity("BookShopCourseWork.Models.Author", b =>
                 {
                     b.Property<int>("Id")
@@ -37,21 +67,6 @@ namespace BookShopCourseWork.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Authors");
-                });
-
-            modelBuilder.Entity("BookShopCourseWork.Models.AuthorBook", b =>
-                {
-                    b.Property<int>("AuthorId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BookId")
-                        .HasColumnType("int");
-
-                    b.HasKey("AuthorId", "BookId");
-
-                    b.HasIndex("BookId");
-
-                    b.ToTable("AuthorBooks");
                 });
 
             modelBuilder.Entity("BookShopCourseWork.Models.Book", b =>
@@ -92,6 +107,31 @@ namespace BookShopCourseWork.Migrations
                     b.ToTable("Books");
                 });
 
+            modelBuilder.Entity("BookShopCourseWork.Models.BookQuantity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("BookId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("BookQuantity");
+                });
+
             modelBuilder.Entity("BookShopCourseWork.Models.Genre", b =>
                 {
                     b.Property<int>("Id")
@@ -108,21 +148,6 @@ namespace BookShopCourseWork.Migrations
                     b.ToTable("Genres");
                 });
 
-            modelBuilder.Entity("BookShopCourseWork.Models.GenreBook", b =>
-                {
-                    b.Property<int>("GenreId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BookId")
-                        .HasColumnType("int");
-
-                    b.HasKey("GenreId", "BookId");
-
-                    b.HasIndex("BookId");
-
-                    b.ToTable("GenreBook");
-                });
-
             modelBuilder.Entity("BookShopCourseWork.Models.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -134,6 +159,9 @@ namespace BookShopCourseWork.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("BookId")
+                        .HasColumnType("int");
+
                     b.Property<string>("City")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -142,30 +170,19 @@ namespace BookShopCourseWork.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Status")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<double>("Total")
+                        .HasColumnType("float");
+
+                    b.Property<string>("UserEmail")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("BookShopCourseWork.Models.OrderBook", b =>
-                {
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BookId")
-                        .HasColumnType("int");
-
-                    b.HasKey("OrderId", "BookId");
-
                     b.HasIndex("BookId");
 
-                    b.ToTable("OrderBook");
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("BookShopCourseWork.Models.Publisher", b =>
@@ -388,23 +405,34 @@ namespace BookShopCourseWork.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("BookShopCourseWork.Models.AuthorBook", b =>
+            modelBuilder.Entity("AuthorBook", b =>
                 {
-                    b.HasOne("BookShopCourseWork.Models.Author", "Author")
-                        .WithMany("AuthorBooks")
-                        .HasForeignKey("AuthorId")
+                    b.HasOne("BookShopCourseWork.Models.Author", null)
+                        .WithMany()
+                        .HasForeignKey("AuthorsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BookShopCourseWork.Models.Book", "Book")
-                        .WithMany("AuthorBooks")
-                        .HasForeignKey("BookId")
+                    b.HasOne("BookShopCourseWork.Models.Book", null)
+                        .WithMany()
+                        .HasForeignKey("BooksId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("BookGenre", b =>
+                {
+                    b.HasOne("BookShopCourseWork.Models.Book", null)
+                        .WithMany()
+                        .HasForeignKey("BooksId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Author");
-
-                    b.Navigation("Book");
+                    b.HasOne("BookShopCourseWork.Models.Genre", null)
+                        .WithMany()
+                        .HasForeignKey("GenresId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("BookShopCourseWork.Models.Book", b =>
@@ -418,42 +446,26 @@ namespace BookShopCourseWork.Migrations
                     b.Navigation("Publisher");
                 });
 
-            modelBuilder.Entity("BookShopCourseWork.Models.GenreBook", b =>
+            modelBuilder.Entity("BookShopCourseWork.Models.BookQuantity", b =>
                 {
                     b.HasOne("BookShopCourseWork.Models.Book", "Book")
-                        .WithMany("GenreBooks")
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("BookId");
 
-                    b.HasOne("BookShopCourseWork.Models.Genre", "Genre")
-                        .WithMany("GenreBooks")
-                        .HasForeignKey("GenreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Book");
-
-                    b.Navigation("Genre");
-                });
-
-            modelBuilder.Entity("BookShopCourseWork.Models.OrderBook", b =>
-                {
-                    b.HasOne("BookShopCourseWork.Models.Book", "Book")
-                        .WithMany("OrderBooks")
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BookShopCourseWork.Models.Order", "Order")
-                        .WithMany("OrderBooks")
+                    b.HasOne("BookShopCourseWork.Models.Order", null)
+                        .WithMany("BookQuantities")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Book");
+                });
 
-                    b.Navigation("Order");
+            modelBuilder.Entity("BookShopCourseWork.Models.Order", b =>
+                {
+                    b.HasOne("BookShopCourseWork.Models.Book", null)
+                        .WithMany("Orders")
+                        .HasForeignKey("BookId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -507,28 +519,14 @@ namespace BookShopCourseWork.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("BookShopCourseWork.Models.Author", b =>
-                {
-                    b.Navigation("AuthorBooks");
-                });
-
             modelBuilder.Entity("BookShopCourseWork.Models.Book", b =>
                 {
-                    b.Navigation("AuthorBooks");
-
-                    b.Navigation("GenreBooks");
-
-                    b.Navigation("OrderBooks");
-                });
-
-            modelBuilder.Entity("BookShopCourseWork.Models.Genre", b =>
-                {
-                    b.Navigation("GenreBooks");
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("BookShopCourseWork.Models.Order", b =>
                 {
-                    b.Navigation("OrderBooks");
+                    b.Navigation("BookQuantities");
                 });
 
             modelBuilder.Entity("BookShopCourseWork.Models.Publisher", b =>

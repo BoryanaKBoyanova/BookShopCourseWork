@@ -32,11 +32,10 @@
         public int PublisherId { get; set; }
         
         public Publisher Publisher { get; set; }
+        public ICollection<Author> Authors { get; set; }
 
-        public IList<AuthorBook> AuthorBooks { get; set; }
+        public ICollection<Order> Orders { get; set; }
 
-        public IList<OrderBook> OrderBooks { get; set; }
-
-        public IList<GenreBook> GenreBooks { get; set; }
+        public ICollection<Genre> Genres { get; set; }
     }
 }

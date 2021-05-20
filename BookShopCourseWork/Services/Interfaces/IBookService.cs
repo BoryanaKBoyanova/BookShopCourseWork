@@ -9,10 +9,15 @@ namespace BookShopCourseWork.Services.Interfaces
 {
     public interface IBookService
     {
-        public bool CreateBook(Book book, Publisher publisher);
+        public bool CreateBook(Book book, Publisher publisher, Author author);
 
         public bool DeleteBook(DeleteBook book);
 
+        public List<Author> GetAuthors();
+
         public bool EditBook(EditBook book);
+        public List<Book> GetBooksByGenre(Genre genre);
+
+        public List<Book> GetAllBooks();
     }
 }

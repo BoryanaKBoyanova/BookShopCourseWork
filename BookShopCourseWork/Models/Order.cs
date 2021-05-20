@@ -9,17 +9,15 @@
     public class Order
     {
         public int Id { get; set; }
-
-        [Required]
         public string Status { get; set; }
+        public string UserEmail { get; set; }
 
-        [Required]
-        public int UserId { get; set; }
-
-        public IList<OrderBook> OrderBooks { get; set; }
+        public ICollection<BookQuantity> BookQuantities {get; set;}
 
         [Required]
         public string City { get; set; }
+
+        public double Total {get; set;}
 
         [Required]
         public string Address { get; set; }  

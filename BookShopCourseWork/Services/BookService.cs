@@ -17,17 +17,29 @@ namespace BookShopCourseWork.Services
         {
             repository = new BookRepository();
         }
-        public bool CreateBook(Book book, Publisher publisher)
+        public bool CreateBook(Book book, Publisher publisher, Author author)
         {
-            return repository.CreateBook(book, publisher);
+            return repository.CreateBook(book, publisher, author);
         }
         public bool DeleteBook(DeleteBook book)
         {
             return repository.DeleteBook(book);
         }
+        public List<Author> GetAuthors()
+        {
+            return repository.GetAuthors();
+        }
         public bool EditBook(EditBook book)
         {
             return repository.EditBook(book);
+        }
+        public List<Book> GetBooksByGenre(Genre genre)
+        {
+            return repository.GetBooksByGenre(genre.GenreName);
+        }
+        public List<Book> GetAllBooks()
+        {
+            return repository.GetAllBooks();
         }
     }
 }
