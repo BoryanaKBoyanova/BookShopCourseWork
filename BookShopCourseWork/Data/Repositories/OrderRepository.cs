@@ -62,7 +62,6 @@ namespace BookShopCourseWork.Data.Repositories
                         break;
                     default:
                         return false;
-                        break;
                 }
                 context.SaveChanges();
                 return true;

@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using System.Threading.Tasks;
 using BookShopCourseWork.Models;
 using BookShopCourseWork.Models.BookController;
@@ -15,11 +16,13 @@ namespace BookShopCourseWork.Controllers
 {
     public class PublisherController : Controller
     {
-        private IBookService bookService { get; set; }
+        private IPublisherService publisherService { get; set; }
         public PublisherController()
         {
-            bookService = new BookService();
+            publisherService = new PublisherService();
         }
+        
+
 
     }
 }

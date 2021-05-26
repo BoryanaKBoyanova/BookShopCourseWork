@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using BookShopCourseWork.Models;
 using BookShopCourseWork.Models.GenreController;
 using BookShopCourseWork.Services.Interfaces;
@@ -12,6 +13,7 @@ using System.Net;
 
 namespace BookShopCourseWork.Controllers
 {
+    [Route("~/Genre")]
     public class GenreController : Controller
     {
         private IGenreService genreService { get; set; }
@@ -19,8 +21,8 @@ namespace BookShopCourseWork.Controllers
         {
             genreService = new GenreService();
         }
-
-        [HttpPost]
+        [Authorize(Policy = "adminOnly")] 
+        [HttpPost("AddGenre")]
         public IActionResult AddGenre(Genre genre)
         {
             if (User.Identity.IsAuthenticated)
@@ -39,7 +41,8 @@ namespace BookShopCourseWork.Controllers
                 return Unauthorized();
             }
         }
-        [HttpPost]
+        [Authorize(Policy = "adminOnly")] 
+        [HttpPost("DeleteGenre")]
         public IActionResult DeleteGenre(DeleteGenre genre)
         {
             if (User.Identity.IsAuthenticated)
@@ -58,7 +61,8 @@ namespace BookShopCourseWork.Controllers
                 return Unauthorized();
             }
         }
-        [HttpPost]
+        [Authorize(Policy = "adminOnly")] 
+        [HttpPost("AddGenreBok")]
         public IActionResult AddGenreBook(AddGenreBook addGenreBook)
         {
             if (User.Identity.IsAuthenticated)

@@ -1,5 +1,18 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using BookShopCourseWork.Models;
+@using BookShopCourseWork.ViewModels;
+@model Book
 @{
+    ViewData["Title"] = Model.Title;
 }
+<div class="row">
+<div class="col text-center"><img src="@Model.ImgUrl" width="300"></div>
+<div class="col">
+    <h1 class="fs-3 fw-bold">@Model.Title</h1>
+    <h1 class="fs-4 fw-bold">€ @Model.Price</h1>
+    <h1 class="fs-5">Authors: @string.Join(", ", Model.Authors.Select(a=>a.ToString()).ToArray<string>())</h1>
+    <hr>
+    <p class="fs-5">Genres: @string.Join(", ", Model.Genres.Select(a=>a.ToString()).ToArray<string>())</p>
+    <p class="fs-5">@Model.Description</p>
+    <button class="btn btn-primary cart-button btn-block text-center fs-3"><i class="fa fa-shopping-cart"></i> Add to cart </button>
+</div>
+</div>

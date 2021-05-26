@@ -11,6 +11,6 @@ namespace BookShopCourseWork.ViewModels
     {
         public List<Book> Books {get; set;}
 
-        public List<Author> Authors {get; set;}
+        public int NumberOfBooks {get; set;}
     }
 }

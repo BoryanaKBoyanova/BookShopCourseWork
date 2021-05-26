@@ -1,31 +1,61 @@
 @using BookShopCourseWork.Models;
 @using BookShopCourseWork.ViewModels;
-@model List<Book>
+@model ViewBooksModel
 @{
     ViewData["Title"] = "View all books";
 }
+<div class="row">
+<div class="col">
+<nav aria-label="Page navigation example" class="mb-3 text-center">
+  <ul class="pagination" id="paginationBooksTop">
+  </ul>
+</nav>
+</div>
+<div class="col-lg">
+<select id="orderBooks" class="form-select mb-3">
+    <option value="publishAscending">Order publish ascending</option>
+    <option value="publishDescending">Order publish descending</option>
+    <option value="titleAscending">Order title ascending</option>
+    <option value="titleDescending">Order title descending</option>
+    <option value="releaseAscending">Order release ascending</option>
+    <option value="releaseDescending">Order relsease descending</option>
+    <option value="priceAscending">Order price ascending</option>
+    <option value="priceDescending">Order price descending</option>
+  </select>
+</div>
+<div class="col"><button type="button" class="btn btn-primary mb-3" onclick="sortBooks()">Sort</button></div>
+</div>
 <div class="row g-1">
-
-@foreach (Book book in Model.OrderBy(b => b.Id).ToList())
+<script>
+$(document).ready(function() {
+     addPagination(@Model.NumberOfBooks);
+     setSelectedValue();
+});
+</script>
+@for (int i=0; i<Model.Books.Count; i++)
 {
         <div class="col-md-3 ml-2">
                     <div class="card p-3">
-                        <div class="text-center"> <img src="@book.ImgUrl" width="200"> </div>
-                        <div class="product-details"> <span class="fw-bold">@book.Title</span>
+                        <a href="~/Book/@Model.Books[i].Id" class="text-dark" style="text-decoration: none;">
+                        <div class="text-center"> <img src="@Model.Books[i].ImgUrl" style="width: 55%;"> </div>
+                        <div class="product-details"> <span class="fw-bold">@Model.Books[i].Title</span>
                             <span class="font-weight-bold d-block">
-                                @string.Join(", ", book.Authors.Select(a=>a.ToString()).ToArray<string>())
+                                @string.Join(", ", Model.Books[i].Authors.Select(a=>a.ToString()).ToArray<string>())
                             </span>
-                        <span class="font-weight-bold d-block">@book.Price.ToString("0.00")lv.</span>
-                            <div class="buttons d-flex flex-row justify-content-center">
-                                
-                    <button class="btn btn-primary cart-button btn-block text-center"><i class="fa fa-shopping-cart"></i> Add to cart </button>
-                            </div>
+                        <span class="font-weight-bold d-block">€ @Model.Books[i].Price.ToString("0.00")</span>
                             
+                        </div>
+                        </a>
+                        <div class="buttons d-flex flex-row justify-content-center">
+                            <button class="btn btn-primary cart-button btn-block text-center"><i class="fa fa-shopping-cart"></i> Add to cart </button>
                         </div>
                     </div>
         </div>
 }
 </div>
-
+<nav aria-label="Page navigation example" class="mt-3 text-center">
+  <ul class="pagination" id="paginationBooksBottom">
+  </ul>
+</nav>
 
 

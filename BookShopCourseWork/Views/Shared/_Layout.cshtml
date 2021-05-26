@@ -4,16 +4,23 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - BookShopCourseWork</title>
+    <title>@ViewData["Title"] - Book Shop</title>
     <link rel="stylesheet" href="~/css/bootstrap.css" />
+    <link rel="icon" type="image/jpg" href="~/img/favicon.jpg">
     <link rel="stylesheet" href="~/fontawesome/css/all.css" />
 </head>
-
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/pages.js"></script>
+    <script src="~/js/sortBooks.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
 <body class="d-flex flex-column h-100">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 fixed-top">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BookShopCourseWork</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/img/logo.png" height="70"/>
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
                     aria-label="Toggle navigation">
@@ -28,26 +35,28 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home"
                                 asp-action="Privacy">Privacy</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Book"
+                                asp-action="ViewAllBooks" asp-route-page="1" asp-route-order="publishDescending">Books</a>
+                        </li>
+                        <partial name="_AdminPanelPartial"/>
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3 flex-shrink-0">
+    <div class="container" style="margin-top: 120px;">
+        <main role="main" class="pb-3 flex-shrink-0" style="min-height: calc(100vh - 180px);">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted text-center mt-auto py-3">
+    <footer class="border-top footer text-muted text-center mt-auto py-3" style="height: 60px;">
         <div class="container">
-            &copy; 2021 - BookShopCourseWork - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2021 - Book Shop - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-    <script src="~/js/jquery.min.js"></script>
-    <script src="~/js/bootstrap.bundle.min.js"></script>
-    @await RenderSectionAsync("Scripts", required: false)
 </body>
 
 </html>

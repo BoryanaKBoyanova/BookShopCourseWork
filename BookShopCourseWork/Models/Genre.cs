@@ -14,5 +14,10 @@
         public string GenreName { get; set; }
 
         public ICollection<Book> Books { get; set; }
+
+        public override string ToString()
+        {
+            return $"{this.GenreName}";
+        }
     }
 }

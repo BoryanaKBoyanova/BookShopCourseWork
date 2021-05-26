@@ -16,7 +16,7 @@ namespace BookShopCourseWork.Data.Repositories
         {
             context = new ApplicationDbContext();
         }
-        public bool CreateBook(Book book, Publisher publisher, Author author)
+        public bool CreateBook(Book book, Publisher publisher, Author author, Genre genre)
         {
             if (context.Books.Any(b => b.Title == book.Title))
             {
@@ -29,6 +29,11 @@ namespace BookShopCourseWork.Data.Repositories
                 {
                     pub = publisher;
                 }
+                Genre gen = context.Genres.FirstOrDefault(g => g.GenreName == genre.GenreName);
+                if(gen==null)
+                {
+                    gen = genre;
+                }
                 Author au = context.Authors.FirstOrDefault(a=>a.FirstName == author.FirstName && a.LastName == author.LastName);
                 if(au==null)
                 {
@@ -37,6 +42,7 @@ namespace BookShopCourseWork.Data.Repositories
                 book.Authors = new List<Author>();
                 book.Authors.Add(au);
                 book.Genres = new List<Genre>();
+                book.Genres.Add(gen);
                 book.Orders = new List<Order>();
                 book.Publisher = pub;
                 context.Books.Add(book);
@@ -100,6 +106,7 @@ namespace BookShopCourseWork.Data.Repositories
                          Id = book.Id,
                          Title = book.Title,
                          Description = book.Description,
+                         Genres = book.Genres.Select(genre => genre).ToList(),
                          Price = book.Price,
                          Pages = book.Pages,
                          ImgUrl = book.ImgUrl,
@@ -107,6 +114,22 @@ namespace BookShopCourseWork.Data.Repositories
                          PublisherId = book.PublisherId,
                          Authors = book.Authors.Select(author => author).ToList()
                      }).ToList();
+        }
+        public Book GetBookById(int bookId)
+        {
+            return context.Books.Select(book => new Book()
+                     {
+                         Id = book.Id,
+                         Title = book.Title,
+                         Description = book.Description,
+                         Genres = book.Genres.Select(genre => genre).ToList(),
+                         Price = book.Price,
+                         Pages = book.Pages,
+                         ImgUrl = book.ImgUrl,
+                         PublishedOn = book.PublishedOn,
+                         PublisherId = book.PublisherId,
+                         Authors = book.Authors.Select(author => author).ToList()
+                     }).FirstOrDefault(b => b.Id == bookId);
         }
     }
 }

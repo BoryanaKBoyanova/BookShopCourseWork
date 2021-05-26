@@ -32,6 +32,12 @@ namespace BookShopCourseWork
             services.AddDbContext<ApplicationDbContext>();
             services.AddDatabaseDeveloperPageExceptionFilter();
 
+              services.AddAuthorization(options => {  
+                options.AddPolicy("loginRequired",  
+                    builder => builder.RequireRole("Admin", "User"));  
+                options.AddPolicy("adminOnly",  
+                    builder => builder.RequireRole("Admin"));  
+            });  
             services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false).AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();;
             services.AddScoped<IUserClaimsPrincipalFactory<User>, ApplicationUserClaimsPrincipalFactory>();
@@ -66,11 +72,17 @@ namespace BookShopCourseWork
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
-                    name: "default",
+                    name: "book",
                     pattern: "{controller=Book}/{action=Index}/{id?}");
-                    endpoints.MapControllerRoute(
-                    name: "default",
+                endpoints.MapControllerRoute(
+                    name: "order",
+                    pattern: "{controller=Order}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(
+                    name: "genre",
                     pattern: "{controller=Genre}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(
+                    name: "author",
+                    pattern: "{controller=Author}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

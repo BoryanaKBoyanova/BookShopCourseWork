@@ -23,17 +23,20 @@ namespace BookShopCourseWork.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
         public RegisterModel(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
+            RoleManager<IdentityRole> roleManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
             _logger = logger;
             _emailSender = emailSender;
         }
@@ -45,7 +48,7 @@ namespace BookShopCourseWork.Areas.Identity.Pages.Account
 
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
-       
+
 
         public async Task OnGetAsync(string returnUrl = null)
         {
@@ -55,12 +58,34 @@ namespace BookShopCourseWork.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
+            if (!await _roleManager.RoleExistsAsync("Admin"))
+            {
+                var role = new IdentityRole();
+                role.Name = "Admin";
+                await _roleManager.CreateAsync(role);
+
+            }
+            if (!await _roleManager.RoleExistsAsync("User"))
+            {
+                var role = new IdentityRole();
+                role.Name = "User";
+                await _roleManager.CreateAsync(role);
+
+            }
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
                 var user = new User { FirstName = Input.FirstName, LastName = Input.LastName, UserName = Input.Email, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user, Input.Password);
+                if (Input.Email.Equals("boryana.k.boyanova@gmail.com"))
+                {
+                    await _userManager.AddToRoleAsync(user, "Admin");
+                }
+                else
+                {
+                    await _userManager.AddToRoleAsync(user, "User");
+                }
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
@@ -82,8 +107,8 @@ namespace BookShopCourseWork.Areas.Identity.Pages.Account
                     //}
                     //else
                     //{
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    return LocalRedirect(returnUrl);
                     //}
                 }
                 foreach (var error in result.Errors)

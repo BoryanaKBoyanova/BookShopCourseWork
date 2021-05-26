@@ -2,9 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using System.Threading.Tasks;
 using BookShopCourseWork.Models;
-using BookShopCourseWork.Models.BookController;
+using BookShopCourseWork.Models.AuthorController;
 using BookShopCourseWork.Services.Interfaces;
 using BookShopCourseWork.Services;
 using BookShopCourseWork.ViewModels;
@@ -13,12 +14,53 @@ using System.Net;
 
 namespace BookShopCourseWork.Controllers
 {
+    [Route("~/Author")]
     public class AuthorController : Controller
     {
-        private IBookService bookService { get; set; }
+        private IAuthorService authorService { get; set; }
         public AuthorController()
         {
-            bookService = new BookService();
+            authorService = new AuthorService();
+        }
+        [Authorize(Policy = "adminOnly")] 
+        [HttpPost("AddAuthor")]
+        public IActionResult AddAuthor(AddAuthor author)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                if(ModelState.IsValid)
+                {
+                    return Ok(authorService.AddAuthor(author));
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            else
+            {
+               return Unauthorized();
+            }
+        }
+        [Authorize(Policy = "adminOnly")] 
+        [HttpPost("DeleteAuthor")]
+        public IActionResult DeleteAuthor(DeleteAuthor author)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                if(ModelState.IsValid)
+                {
+                    return Ok(authorService.DeleteAuthor(author));
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            else
+            {
+               return Unauthorized();
+            }
         }
 
     }

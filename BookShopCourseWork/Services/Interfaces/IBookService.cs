@@ -9,7 +9,7 @@ namespace BookShopCourseWork.Services.Interfaces
 {
     public interface IBookService
     {
-        public bool CreateBook(Book book, Publisher publisher, Author author);
+        public bool CreateBook(Book book, Publisher publisher, Author author, Genre genre);
 
         public bool DeleteBook(DeleteBook book);
 
@@ -19,5 +19,6 @@ namespace BookShopCourseWork.Services.Interfaces
         public List<Book> GetBooksByGenre(Genre genre);
 
         public List<Book> GetAllBooks();
+        public Book GetBookById(int bookId);
     }
 }

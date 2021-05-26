@@ -1,0 +1,11 @@
+@using Microsoft.AspNetCore.Identity
+@using BookShopCourseWork.Extensions;
+@using BookShopCourseWork.Models
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+{
+<li class="nav-item">
+    <a class="nav-link text-dark">Admin panel</a>
+</li>
+}
