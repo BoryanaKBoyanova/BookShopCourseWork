@@ -145,25 +145,5 @@ namespace BookShopCourseWork.Controllers
                 return Unauthorized();
             }
         }
-        [Authorize(Policy = "adminOnly")] 
-        [HttpPost("DeleteBook")]
-        public IActionResult DeleteBook(DeleteBook book)
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                if (ModelState.IsValid)
-                {
-                    return Ok(bookService.DeleteBook(book));
-                }
-                else
-                {
-                    return BadRequest();
-                }
-            }
-            else
-            {
-                return Unauthorized();
-            }
-        }
     }
 }

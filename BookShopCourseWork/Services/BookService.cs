@@ -21,10 +21,6 @@ namespace BookShopCourseWork.Services
         {
             return repository.CreateBook(book, publisher, author, genre);
         }
-        public bool DeleteBook(DeleteBook book)
-        {
-            return repository.DeleteBook(book);
-        }
         public List<Author> GetAuthors()
         {
             return repository.GetAuthors();
