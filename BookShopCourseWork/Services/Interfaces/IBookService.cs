@@ -11,8 +11,6 @@ namespace BookShopCourseWork.Services.Interfaces
     {
         public bool CreateBook(Book book, Publisher publisher, Author author, Genre genre);
 
-        public bool DeleteBook(DeleteBook book);
-
         public List<Author> GetAuthors();
 
         public bool EditBook(EditBook book);

@@ -11,8 +11,6 @@ namespace BookShopCourseWork.Data.Interfaces
     {
         public bool CreateBook(Book book, Publisher publisher, Author author, Genre genre);
 
-        public bool DeleteBook(DeleteBook book);
-
         public bool EditBook(EditBook book);
 
         public List<Book> GetBooksByGenre(string genreName);

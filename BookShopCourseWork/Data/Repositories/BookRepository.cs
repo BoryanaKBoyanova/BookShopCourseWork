@@ -50,20 +50,6 @@ namespace BookShopCourseWork.Data.Repositories
                 return true;
             }
         }
-        public bool DeleteBook(DeleteBook book)
-        {
-            Book b = context.Books.Find(book.BookId);
-            if (b != null)
-            {
-                context.Books.Remove(b);
-                context.SaveChanges();
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
         public bool EditBook(EditBook book)
         {
             Book b = context.Books.Find(book.Id);
