@@ -12,5 +12,6 @@ namespace BookShopCourseWork.Data.Interfaces
         public bool CreateOrder(CreateOrder order, string userEmail);
         public bool ChangeStatus(ChangeStatus changeStatus);
         public List<Order> GetOrders();
+        public List<Order> GetOrdersByUser(string email);
     }
 }

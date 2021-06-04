@@ -25,60 +25,39 @@ namespace BookShopCourseWork.Controllers
         [HttpPost("AddGenre")]
         public IActionResult AddGenre(Genre genre)
         {
-            if (User.Identity.IsAuthenticated)
+            if(ModelState.IsValid)
             {
-                if(ModelState.IsValid)
-                {
-                    return Ok(genreService.AddGenre(genre));
-                }
-                else
-                {
-                    return BadRequest();
-                }
+                return Ok(genreService.AddGenre(genre));
             }
             else
             {
-                return Unauthorized();
+                return BadRequest();
             }
         }
         [Authorize(Policy = "adminOnly")] 
         [HttpPost("DeleteGenre")]
         public IActionResult DeleteGenre(DeleteGenre genre)
         {
-            if (User.Identity.IsAuthenticated)
+            if(ModelState.IsValid)
             {
-                if(ModelState.IsValid)
-                {
-                    return Ok(genreService.DeleteGenre(genre));
-                }
-                else
-                {
-                    return BadRequest();
-                }
+                return Ok(genreService.DeleteGenre(genre));
             }
             else
             {
-                return Unauthorized();
+                return BadRequest();
             }
         }
         [Authorize(Policy = "adminOnly")] 
         [HttpPost("AddGenreBok")]
         public IActionResult AddGenreBook(AddGenreBook addGenreBook)
         {
-            if (User.Identity.IsAuthenticated)
+            if(ModelState.IsValid)
             {
-                if(ModelState.IsValid)
-                {
-                    return Ok(genreService.AddGenreBook(addGenreBook));
-                }
-                else
-                {
-                    return BadRequest();
-                }
+                return Ok(genreService.AddGenreBook(addGenreBook));
             }
             else
             {
-                return Unauthorized();
+                return BadRequest();
             }
         }
 

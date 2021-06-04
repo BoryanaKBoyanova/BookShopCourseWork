@@ -20,14 +20,5 @@ namespace BookShopCourseWork.Data
         {
         optionsBuilder.UseSqlServer("Server=BB-454;Database=BookShop;Trusted_Connection=True;MultipleActiveResultSets=true");
         }
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-           
-            modelBuilder.Entity<Book>()
-            .HasOne<Publisher>(b => b.Publisher)
-            .WithMany(p => p.Books)
-            .HasForeignKey(b => b.PublisherId);
-            base.OnModelCreating(modelBuilder);
-        }
     }
 }

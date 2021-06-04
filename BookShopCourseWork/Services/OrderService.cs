@@ -25,5 +25,9 @@ namespace BookShopCourseWork.Services
         {
             return repository.ChangeStatus(changeStatus);
         }
+        public List<Order> GetOrdersByUser(string email)
+        {
+            return repository.GetOrdersByUser(email);
+        }
     }
 }

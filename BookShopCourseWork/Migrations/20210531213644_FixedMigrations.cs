@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BookShopCourseWork.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class FixedMigrations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -73,23 +73,6 @@ namespace BookShopCourseWork.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Genres", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Orders",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Notes = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Orders", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -221,6 +204,7 @@ namespace BookShopCourseWork.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false),
                     Pages = table.Column<int>(type: "int", nullable: false),
+                    ImgUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PublishedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PublisherId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -236,71 +220,100 @@ namespace BookShopCourseWork.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AuthorBooks",
+                name: "AuthorBook",
                 columns: table => new
                 {
-                    AuthorId = table.Column<int>(type: "int", nullable: false),
-                    BookId = table.Column<int>(type: "int", nullable: false)
+                    AuthorsId = table.Column<int>(type: "int", nullable: false),
+                    BooksId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AuthorBooks", x => new { x.AuthorId, x.BookId });
+                    table.PrimaryKey("PK_AuthorBook", x => new { x.AuthorsId, x.BooksId });
                     table.ForeignKey(
-                        name: "FK_AuthorBooks_Authors_AuthorId",
-                        column: x => x.AuthorId,
+                        name: "FK_AuthorBook_Authors_AuthorsId",
+                        column: x => x.AuthorsId,
                         principalTable: "Authors",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_AuthorBooks_Books_BookId",
-                        column: x => x.BookId,
+                        name: "FK_AuthorBook_Books_BooksId",
+                        column: x => x.BooksId,
                         principalTable: "Books",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "GenreBook",
+                name: "BookGenre",
                 columns: table => new
                 {
-                    GenreId = table.Column<int>(type: "int", nullable: false),
-                    BookId = table.Column<int>(type: "int", nullable: false)
+                    BooksId = table.Column<int>(type: "int", nullable: false),
+                    GenresId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GenreBook", x => new { x.GenreId, x.BookId });
+                    table.PrimaryKey("PK_BookGenre", x => new { x.BooksId, x.GenresId });
                     table.ForeignKey(
-                        name: "FK_GenreBook_Books_BookId",
-                        column: x => x.BookId,
+                        name: "FK_BookGenre_Books_BooksId",
+                        column: x => x.BooksId,
                         principalTable: "Books",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_GenreBook_Genres_GenreId",
-                        column: x => x.GenreId,
+                        name: "FK_BookGenre_Genres_GenresId",
+                        column: x => x.GenresId,
                         principalTable: "Genres",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "OrderBook",
+                name: "Orders",
                 columns: table => new
                 {
-                    OrderId = table.Column<int>(type: "int", nullable: false),
-                    BookId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Total = table.Column<double>(type: "float", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Notes = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BookId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderBook", x => new { x.OrderId, x.BookId });
+                    table.PrimaryKey("PK_Orders", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OrderBook_Books_BookId",
+                        name: "FK_Orders_Books_BookId",
+                        column: x => x.BookId,
+                        principalTable: "Books",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "BookQuantity",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BookId = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    OrderId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BookQuantity", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_BookQuantity_Books_BookId",
                         column: x => x.BookId,
                         principalTable: "Books",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_OrderBook_Orders_OrderId",
+                        name: "FK_BookQuantity_Orders_OrderId",
                         column: x => x.OrderId,
                         principalTable: "Orders",
                         principalColumn: "Id",
@@ -347,9 +360,24 @@ namespace BookShopCourseWork.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AuthorBooks_BookId",
-                table: "AuthorBooks",
+                name: "IX_AuthorBook_BooksId",
+                table: "AuthorBook",
+                column: "BooksId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BookGenre_GenresId",
+                table: "BookGenre",
+                column: "GenresId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BookQuantity_BookId",
+                table: "BookQuantity",
                 column: "BookId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BookQuantity_OrderId",
+                table: "BookQuantity",
+                column: "OrderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Books_PublisherId",
@@ -357,13 +385,8 @@ namespace BookShopCourseWork.Migrations
                 column: "PublisherId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GenreBook_BookId",
-                table: "GenreBook",
-                column: "BookId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OrderBook_BookId",
-                table: "OrderBook",
+                name: "IX_Orders_BookId",
+                table: "Orders",
                 column: "BookId");
         }
 
@@ -385,13 +408,13 @@ namespace BookShopCourseWork.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "AuthorBooks");
+                name: "AuthorBook");
 
             migrationBuilder.DropTable(
-                name: "GenreBook");
+                name: "BookGenre");
 
             migrationBuilder.DropTable(
-                name: "OrderBook");
+                name: "BookQuantity");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -406,10 +429,10 @@ namespace BookShopCourseWork.Migrations
                 name: "Genres");
 
             migrationBuilder.DropTable(
-                name: "Books");
+                name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "Orders");
+                name: "Books");
 
             migrationBuilder.DropTable(
                 name: "Publishers");

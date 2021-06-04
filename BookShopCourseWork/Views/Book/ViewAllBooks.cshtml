@@ -18,7 +18,7 @@
     <option value="titleAscending">Order title ascending</option>
     <option value="titleDescending">Order title descending</option>
     <option value="releaseAscending">Order release ascending</option>
-    <option value="releaseDescending">Order relsease descending</option>
+    <option value="releaseDescending">Order release descending</option>
     <option value="priceAscending">Order price ascending</option>
     <option value="priceDescending">Order price descending</option>
   </select>
@@ -35,27 +35,45 @@ $(document).ready(function() {
 @for (int i=0; i<Model.Books.Count; i++)
 {
         <div class="col-md-3 ml-2">
-                    <div class="card p-3">
-                        <a href="~/Book/@Model.Books[i].Id" class="text-dark" style="text-decoration: none;">
-                        <div class="text-center"> <img src="@Model.Books[i].ImgUrl" style="width: 55%;"> </div>
-                        <div class="product-details"> <span class="fw-bold">@Model.Books[i].Title</span>
-                            <span class="font-weight-bold d-block">
-                                @string.Join(", ", Model.Books[i].Authors.Select(a=>a.ToString()).ToArray<string>())
-                            </span>
-                        <span class="font-weight-bold d-block">€ @Model.Books[i].Price.ToString("0.00")</span>
-                            
-                        </div>
-                        </a>
-                        <div class="buttons d-flex flex-row justify-content-center">
-                            <button class="btn btn-primary cart-button btn-block text-center"><i class="fa fa-shopping-cart"></i> Add to cart </button>
-                        </div>
+            <a href="~/Book/@Model.Books[i].Id" class="text-dark" style="text-decoration: none;">
+                    <div class="card p-3 book">
+                          <div class="text-center"> <img src="@Model.Books[i].ImgUrl" style="max-width: 240px; max-height: 200px;"> </div>
+                            <div class="product-details text-center"> <span class="fw-bold">@Model.Books[i].Title</span>
+                                <span class="font-weight-bold d-block">
+                                    @string.Join(", ", Model.Books[i].Authors.Select(a=>a.ToString()).ToArray<string>())
+                                    
+                                </span>
+                            <span class="font-weight-bold d-block text-center">€ @Model.Books[i].Price.ToString("0.00")</span>
+                                
+                            </div>
+                            <div class="buttons d-flex flex-row justify-content-center mt-3">
+                              <button id='@string.Format("addToCartButton{0}",i)' class="btn btn-primary cart-button btn-block text-center mb-4" onclick="addToCartOneQuantity(@Model.Books[i].Id, '@Model.Books[i].Title')"><i class="fa fa-shopping-cart"></i> Add to cart </button>
+                          </div>
                     </div>
+                    </a>
         </div>
 }
+</div>
+
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5">
+  <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <strong class="me-auto">Message</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      <span id="titleMessage"></span> is added successfully to your shopping cart!
+    </div>
+  </div>
 </div>
 <nav aria-label="Page navigation example" class="mt-3 text-center">
   <ul class="pagination" id="paginationBooksBottom">
   </ul>
 </nav>
-
+<script>
+ var fn = function(e) { e.preventDefault() };
+for(var i = 0; i<@Model.Books.Count; i++) {
+    document.getElementById(`addToCartButton${i}`).addEventListener('click', fn, false);
+}
+</script>
 

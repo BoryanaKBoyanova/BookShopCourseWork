@@ -23,6 +23,7 @@ namespace BookShopCourseWork.Data.Repositories
             o.City = order.City;
             o.Notes = order.Notes;
             o.UserEmail = userEmail;
+            o.PhoneNumber = order.PhoneNumber;
             o.Total = 0;
             o.Status = OrderStatus.SENT.ToString();
             o.BookQuantities = new List<BookQuantity>();
@@ -80,6 +81,21 @@ namespace BookShopCourseWork.Data.Repositories
                 Notes = order.Notes,
                 UserEmail = order.UserEmail,
                 Status = order.Status,
+                PhoneNumber = order.PhoneNumber,
+                Total = order.Total,
+                BookQuantities = order.BookQuantities.Select(baq => baq).ToList()
+            }).ToList();
+        }
+        public List<Order> GetOrdersByUser(string email)
+        {
+            return context.Orders.Where(o=> o.UserEmail == email).Select(order => new Order()
+            {
+                City = order.City,
+                Address = order.Address,
+                Notes = order.Notes,
+                UserEmail = order.UserEmail,
+                Status = order.Status,
+                PhoneNumber = order.PhoneNumber,
                 Total = order.Total,
                 BookQuantities = order.BookQuantities.Select(baq => baq).ToList()
             }).ToList();

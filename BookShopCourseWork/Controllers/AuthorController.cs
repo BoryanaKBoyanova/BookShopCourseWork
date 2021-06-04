@@ -26,40 +26,26 @@ namespace BookShopCourseWork.Controllers
         [HttpPost("AddAuthor")]
         public IActionResult AddAuthor(AddAuthor author)
         {
-            if (User.Identity.IsAuthenticated)
+            if(ModelState.IsValid)
             {
-                if(ModelState.IsValid)
-                {
-                    return Ok(authorService.AddAuthor(author));
-                }
-                else
-                {
-                    return BadRequest();
-                }
+                return Ok(authorService.AddAuthor(author));
             }
             else
             {
-               return Unauthorized();
+                return BadRequest();
             }
         }
         [Authorize(Policy = "adminOnly")] 
         [HttpPost("DeleteAuthor")]
         public IActionResult DeleteAuthor(DeleteAuthor author)
         {
-            if (User.Identity.IsAuthenticated)
+            if(ModelState.IsValid)
             {
-                if(ModelState.IsValid)
-                {
-                    return Ok(authorService.DeleteAuthor(author));
-                }
-                else
-                {
-                    return BadRequest();
-                }
+                return Ok(authorService.DeleteAuthor(author));
             }
             else
             {
-               return Unauthorized();
+                return BadRequest();
             }
         }
 

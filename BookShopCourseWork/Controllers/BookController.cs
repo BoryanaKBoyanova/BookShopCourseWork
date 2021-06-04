@@ -20,10 +20,8 @@ namespace BookShopCourseWork.Controllers
     public class BookController : Controller
     {
         private IBookService bookService { get; set; }
-        private UserManager<User> _userManager;
-        public BookController(UserManager<User> userManager)
+        public BookController()
         {
-            _userManager = userManager;
             bookService = new BookService();
         }
         [HttpGet("{id}")]
@@ -39,6 +37,27 @@ namespace BookShopCourseWork.Controllers
                 else
                 {
                     return View(book);
+                }
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpGet("GetBookByIdJson/{id}")]
+        public IActionResult GetBookByIdJson([FromRoute] int id)
+        {
+            if (id != 0)
+            {
+                Book book = bookService.GetBookById(id);
+                if (book == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Json(book);
                 }
             }
             else
@@ -109,8 +128,6 @@ namespace BookShopCourseWork.Controllers
         [HttpPost("EditBook")]
         public IActionResult EditBook(EditBook book)
         {
-            if (User.Identity.IsAuthenticated)
-            {
                 if (ModelState.IsValid)
                 {
                     return Ok(bookService.EditBook(book));
@@ -119,18 +136,11 @@ namespace BookShopCourseWork.Controllers
                 {
                     return BadRequest();
                 }
-            }
-            else
-            {
-                return Unauthorized();
-            }
         } 
         [Authorize(Policy = "adminOnly")] 
         [HttpPost("CreateBook")]
         public IActionResult CreateBook(Book book, Publisher publisher, Author author, Genre genre)
         {
-            if (User.Identity.IsAuthenticated)
-            {
                 if (ModelState.IsValid)
                 {
                     return Ok(bookService.CreateBook(book, publisher, author, genre));
@@ -139,18 +149,11 @@ namespace BookShopCourseWork.Controllers
                 {
                     return BadRequest();
                 }
-            }
-            else
-            {
-                return Unauthorized();
-            }
         }
         [Authorize(Policy = "adminOnly")] 
         [HttpPost("DeleteBook")]
         public IActionResult DeleteBook(DeleteBook book)
         {
-            if (User.Identity.IsAuthenticated)
-            {
                 if (ModelState.IsValid)
                 {
                     return Ok(bookService.DeleteBook(book));
@@ -159,11 +162,6 @@ namespace BookShopCourseWork.Controllers
                 {
                     return BadRequest();
                 }
-            }
-            else
-            {
-                return Unauthorized();
-            }
         }
     }
 }
