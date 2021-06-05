@@ -13,6 +13,7 @@ using System.Net;
 
 namespace BookShopCourseWork.Controllers
 {
+    [Authorize(Policy = "adminOnly")] 
     [Route("~/Genre")]
     public class GenreController : Controller
     {
@@ -21,7 +22,6 @@ namespace BookShopCourseWork.Controllers
         {
             genreService = new GenreService();
         }
-        [Authorize(Policy = "adminOnly")] 
         [HttpPost("AddGenre")]
         public IActionResult AddGenre(Genre genre)
         {
@@ -34,7 +34,6 @@ namespace BookShopCourseWork.Controllers
                 return BadRequest();
             }
         }
-        [Authorize(Policy = "adminOnly")] 
         [HttpPost("DeleteGenre")]
         public IActionResult DeleteGenre(DeleteGenre genre)
         {
@@ -47,7 +46,6 @@ namespace BookShopCourseWork.Controllers
                 return BadRequest();
             }
         }
-        [Authorize(Policy = "adminOnly")] 
         [HttpPost("AddGenreBok")]
         public IActionResult AddGenreBook(AddGenreBook addGenreBook)
         {

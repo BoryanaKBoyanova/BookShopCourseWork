@@ -2,6 +2,7 @@
     ViewData["Title"] = "Admin panel";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@using BookShopCourseWork.Views.Admin;
 <div class="row">
   <div class="col-lg-3">
     <div class="card text-center mt-3 ml-3 mr-2">
@@ -15,8 +16,11 @@
         </div>
         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
           <div class="card-body text-left">
-            <a class="nav-item nav-link has-icon nav-link-faded text-primary">
+            <a class="nav-link @AdminNav.CreateBookNavClass(ViewContext)" asp-controller="Admin" asp-action="CreateBook">
                 <i class="fas fa-book"></i> Create book
+            </a>
+             <a class="nav-link @AdminNav.EditBookNavClass(ViewContext)" asp-controller="Admin" asp-action="EditBook">
+                <i class="fas fa-book"></i> Edit book
             </a>
           </div>
         </div>
@@ -24,7 +28,10 @@
       </div>
     </div>
   </div>
-  <div class="col-md-8 mt-3 card" style="margin-left:30px; margin-right:30px" id="tabContent">
+  <div class="col-md-8 mt-3 card ml-3 mr-3" id="tabContent">
     @RenderBody()
   </div>
 </div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

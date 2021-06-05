@@ -16,7 +16,7 @@ namespace BookShopCourseWork.Data.Repositories
         {
             context = new ApplicationDbContext();
         }
-        public bool CreateBook(Book book, Publisher publisher, Author author, Genre genre)
+        public bool CreateBook(CreateBook book)
         {
             if (context.Books.Any(b => b.Title == book.Title))
             {
@@ -24,28 +24,35 @@ namespace BookShopCourseWork.Data.Repositories
             }
             else
             {
-                Publisher pub = context.Publishers.FirstOrDefault(p=>p.PublisherName == publisher.PublisherName);
+                Publisher pub = context.Publishers.FirstOrDefault(p=>p.PublisherName == book.PublisherName);
                 if(pub==null)
                 {
-                    pub = publisher;
+                    pub = new Publisher(){PublisherName = book.PublisherName};
                 }
-                Genre gen = context.Genres.FirstOrDefault(g => g.GenreName == genre.GenreName);
+                Genre gen = context.Genres.FirstOrDefault(g => g.GenreName == book.GenreName);
                 if(gen==null)
                 {
-                    gen = genre;
+                    gen = new Genre(){GenreName = book.GenreName};
                 }
-                Author au = context.Authors.FirstOrDefault(a=>a.FirstName == author.FirstName && a.LastName == author.LastName);
+                Author au = context.Authors.FirstOrDefault(a=>a.FirstName == book.FirstName && a.LastName == book.LastName);
                 if(au==null)
                 {
-                    au = author;
+                    au = new Author(){FirstName= book.FirstName, LastName = book.LastName};
                 }
-                book.Authors = new List<Author>();
-                book.Authors.Add(au);
-                book.Genres = new List<Genre>();
-                book.Genres.Add(gen);
-                book.Orders = new List<Order>();
-                book.Publisher = pub;
-                context.Books.Add(book);
+                Book b = new Book();
+                b.Title = book.Title;
+                b.Description = book.Description;
+                b.ImgUrl = book.ImgUrl;
+                b.Pages = book.Pages;
+                b.PublishedOn = book.PublishedOn;
+                b.Price = book.Price;
+                b.Authors = new List<Author>();
+                b.Authors.Add(au);
+                b.Genres = new List<Genre>();
+                b.Genres.Add(gen);
+                b.Orders = new List<Order>();
+                b.Publisher = pub;
+                context.Books.Add(b);
                 context.SaveChanges();
                 return true;
             }
@@ -109,6 +116,7 @@ namespace BookShopCourseWork.Data.Repositories
                          Title = book.Title,
                          Description = book.Description,
                          Genres = book.Genres.Select(genre => genre).ToList(),
+                         Publisher = context.Publishers.FirstOrDefault(p=> p.Id == book.PublisherId),
                          Price = book.Price,
                          Pages = book.Pages,
                          ImgUrl = book.ImgUrl,

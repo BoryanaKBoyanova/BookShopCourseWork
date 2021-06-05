@@ -139,11 +139,12 @@ namespace BookShopCourseWork.Controllers
         } 
         [Authorize(Policy = "adminOnly")] 
         [HttpPost("CreateBook")]
-        public IActionResult CreateBook(Book book, Publisher publisher, Author author, Genre genre)
+        public IActionResult CreateBook(CreateBook book)
         {
                 if (ModelState.IsValid)
                 {
-                    return Ok(bookService.CreateBook(book, publisher, author, genre));
+                    bookService.CreateBook(book);
+                    return RedirectToAction("CreateBook", "Admin", new { area = "" });
                 }
                 else
                 {

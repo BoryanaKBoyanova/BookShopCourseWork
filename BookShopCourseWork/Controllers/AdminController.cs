@@ -16,6 +16,7 @@ using System.Net;
 
 namespace BookShopCourseWork.Controllers
 {
+    [Authorize(Policy = "adminOnly")] 
     [Route("~/Admin")]
     public class AdminController : Controller
     {
@@ -31,8 +32,12 @@ namespace BookShopCourseWork.Controllers
 
         }
         [HttpGet("CreateBook")]
-        [Authorize(Policy = "adminOnly")]
         public IActionResult CreateBook()
+        {
+            return View();
+        }
+        [HttpGet("EditBook")]
+        public IActionResult EditBook()
         {
             return View();
         }

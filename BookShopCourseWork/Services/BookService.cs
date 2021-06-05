@@ -17,9 +17,9 @@ namespace BookShopCourseWork.Services
         {
             repository = new BookRepository();
         }
-        public bool CreateBook(Book book, Publisher publisher, Author author, Genre genre)
+        public bool CreateBook(CreateBook book)
         {
-            return repository.CreateBook(book, publisher, author, genre);
+            return repository.CreateBook(book);
         }
         public List<Author> GetAuthors()
         {

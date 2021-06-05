@@ -14,6 +14,7 @@ using System.Net;
 
 namespace BookShopCourseWork.Controllers
 {
+    [Authorize(Policy = "adminOnly")] 
     [Route("~/Author")]
     public class AuthorController : Controller
     {
@@ -22,7 +23,6 @@ namespace BookShopCourseWork.Controllers
         {
             authorService = new AuthorService();
         }
-        [Authorize(Policy = "adminOnly")] 
         [HttpPost("AddAuthor")]
         public IActionResult AddAuthor(AddAuthor author)
         {
@@ -35,7 +35,6 @@ namespace BookShopCourseWork.Controllers
                 return BadRequest();
             }
         }
-        [Authorize(Policy = "adminOnly")] 
         [HttpPost("DeleteAuthor")]
         public IActionResult DeleteAuthor(DeleteAuthor author)
         {

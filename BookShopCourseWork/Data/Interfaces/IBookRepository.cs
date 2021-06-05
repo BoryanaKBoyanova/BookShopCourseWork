@@ -9,7 +9,7 @@ namespace BookShopCourseWork.Data.Interfaces
 {
     interface IBookRepository
     {
-        public bool CreateBook(Book book, Publisher publisher, Author author, Genre genre);
+        public bool CreateBook(CreateBook book);
 
         public bool EditBook(EditBook book);
 

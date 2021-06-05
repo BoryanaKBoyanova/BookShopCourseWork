@@ -14,6 +14,7 @@ using System.Net;
 
 namespace BookShopCourseWork.Controllers
 {
+    [Authorize(Policy = "adminOnly")]
     public class PublisherController : Controller
     {
         private IPublisherService publisherService { get; set; }
