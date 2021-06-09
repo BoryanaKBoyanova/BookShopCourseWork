@@ -1,0 +1,27 @@
+@using BookShopCourseWork.Models;
+@{
+    Layout = "_Layout.cshtml";
+    ViewData["ActivePage"] = "ViewOrders";
+    ViewData["ActiveTab"] = "Orders";
+}
+@model List<Order>
+<div class="mt-3 ml-3 mr-3 mb-3">
+    <h4><span id="title"></span> orders</h4>
+    <select id="status" class="form-control">
+        <option value="SENT">Sent</option>
+        <option value="PROCESSING">Processing</option>
+        <option value="DELIVERED">Delivered</option>
+        <option value="CANCELLED">Cancelled</option>
+        <option value="none">All</option>
+    </select>
+    <script>setSelectedValueStatus()</script>
+    <button type="submit" class="btn btn-primary mt-3" onclick="getOrdersByStatus()">Get orders</button>
+    <hr>
+    <ul class="list-group">
+        @foreach (Order order in Model)
+        {
+            <li class="list-group-item"><a class="link-primary" href="/Admin/ViewAndEditOrder/@order.Id">@order.Date € @order.Total</a></li>
+        }
+    </ul>
+
+</div>

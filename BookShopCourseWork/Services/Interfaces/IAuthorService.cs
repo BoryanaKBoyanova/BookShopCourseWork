@@ -11,5 +11,7 @@ namespace BookShopCourseWork.Services.Interfaces
     {
         public bool AddAuthor(AddAuthor author);
         public bool DeleteAuthor(DeleteAuthor author);
+
+        public bool UpdateAuthorBook(UpdateAuthorBook authorBook);
     }
 }

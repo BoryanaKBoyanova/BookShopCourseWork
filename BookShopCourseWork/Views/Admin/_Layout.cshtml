@@ -1,30 +1,63 @@
 @{
-    ViewData["Title"] = "Admin panel";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+  ViewData["Title"] = "Admin panel";
+  Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @using BookShopCourseWork.Views.Admin;
+
+<script src="~/js/OrderAdmin.js"></script>
 <div class="row">
   <div class="col-lg-3">
-    <div class="card text-center mt-3 ml-3 mr-2">
-      <div id="accordion">
-        <div class="card bg-primary">
-          <div class="card-header" id="headingOne">
-            <button class="btn btn-primary text-secondary" style="font-size: 15px;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-             <i class="fas fa-star"></i> Books
-            </button>
-          </div>
-        </div>
-        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-          <div class="card-body text-left">
+    <div class="accordion" id="accordion">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+          <button class="accordion-button bg-primary text-secondary @AdminNav.BooksButtonTab(ViewContext)" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <span><i class="fas fa-star"></i> Books</span>
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse @AdminNav.BooksNavClassTab(ViewContext)" aria-labelledby="headingOne" data-bs-parent="#accordion">
+          <div class="accordion-body">
             <a class="nav-link @AdminNav.CreateBookNavClass(ViewContext)" asp-controller="Admin" asp-action="CreateBook">
-                <i class="fas fa-book"></i> Create book
+              <i class="fas fa-book"></i> Create book
             </a>
-             <a class="nav-link @AdminNav.EditBookNavClass(ViewContext)" asp-controller="Admin" asp-action="EditBook">
-                <i class="fas fa-book"></i> Edit book
+            <a class="nav-link @AdminNav.EditBookNavClass(ViewContext)" asp-controller="Admin" asp-action="EditBook">
+              <i class="fas fa-book"></i> Edit book
             </a>
           </div>
         </div>
-        
+
+      </div>
+     <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+          <button class="accordion-button bg-primary text-secondary @AdminNav.OrdersButtonTab(ViewContext)" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+            <span><i class="fas fa-list-ul"></i> Orders</span>
+          </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse @AdminNav.OrdersNavClassTab(ViewContext)" aria-labelledby="headingTwo" data-bs-parent="#accordion">
+          <div class="accordion-body">
+            <a class="nav-link @AdminNav.ViewOrdersNavClass(ViewContext)" asp-controller="Admin" asp-action="ViewOrdersByStatus" asp-route-status="none">
+              <i class="fas fa-clipboard-list"></i> View orders
+            </a>
+            <a class="nav-link @AdminNav.FindOrderByIdNavClass(ViewContext)" asp-controller="Admin" asp-action="FindOrderById">
+              <i class="fas fa-search"></i> Find order by Id
+            </a>
+          </div>
+        </div>
+
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingThree">
+          <button class="accordion-button bg-primary text-secondary @AdminNav.AuthorsButtonTab(ViewContext)" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+            <span><i class="fas fa-users"></i> Authors</span>
+          </button>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse @AdminNav.AuthorsNavClassTab(ViewContext)" aria-labelledby="headingThree" data-bs-parent="#accordion">
+          <div class="accordion-body">
+            <a class="nav-link @AdminNav.UpdateAuthorBookNavClass(ViewContext)" asp-controller="Admin" asp-action="UpdateAuthorBook">
+              <i class="fas fa-link"></i> Update author and book
+            </a>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -33,5 +66,5 @@
   </div>
 </div>
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+<partial name="_ValidationScriptsPartial" />
 }

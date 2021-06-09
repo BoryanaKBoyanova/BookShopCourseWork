@@ -25,5 +25,9 @@ namespace BookShopCourseWork.Services
         {
             return repository.DeleteAuthor(author);
         }
+        public bool UpdateAuthorBook(UpdateAuthorBook authorBook)
+        {
+            return repository.UpdateAuthorBook(authorBook);
+        }
     }
 }

@@ -1,0 +1,13 @@
+@model BookShopCourseWork.Models.BookController.EditBook;
+@{
+    Layout = "_Layout.cshtml";
+    ViewData["ActivePage"] = "FindOrderById";
+    ViewData["ActiveTab"] = "Orders";
+}
+<div class="mt-3 mr-3 ml-3">
+    <h4>Find order by Id</h4>
+    <hr>
+    <label for="id">Order Id</label>
+    <input type="number" id="id" class="form-control">
+    <button class="btn btn-primary mt-3" onclick="findOrder()">Find order</button>
+</div>

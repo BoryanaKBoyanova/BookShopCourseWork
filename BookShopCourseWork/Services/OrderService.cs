@@ -7,6 +7,7 @@ using BookShopCourseWork.Models;
 using BookShopCourseWork.Models.OrderController;
 using BookShopCourseWork.Data.Interfaces;
 using BookShopCourseWork.Data.Repositories;
+using BookShopCourseWork.Models.Enums;
 
 namespace BookShopCourseWork.Services
 {
@@ -28,6 +29,18 @@ namespace BookShopCourseWork.Services
         public List<Order> GetOrdersByUser(string email)
         {
             return repository.GetOrdersByUser(email);
+        }
+        public Order GetOrderById(string email, int id)
+        {
+            return repository.GetOrderById(email, id);
+        }
+        public List<Order> GetOrdersByStatus(string status)
+        {
+            return repository.GetOrderByStatus(status);
+        }
+        public Order GetOrderByIdAdmin(int Id)
+        {
+            return repository.GetOrderByIdAdmin(Id);
         }
     }
 }

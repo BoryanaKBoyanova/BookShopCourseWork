@@ -19,5 +19,7 @@ namespace BookShopCourseWork.Data.Interfaces
         public List<Book> GetAllBooks();
         public Book GetBookById(int bookId);
 
+        
+
     }
 }

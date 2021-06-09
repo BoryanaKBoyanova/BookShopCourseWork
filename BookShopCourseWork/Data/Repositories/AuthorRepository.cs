@@ -44,6 +44,36 @@ namespace BookShopCourseWork.Data.Repositories
                 return false;
             }
         }
+        public bool UpdateAuthorBook(UpdateAuthorBook authorBook)
+        {
+            Author a = context.Authors.Find(authorBook.AuthorId);
+            Book b = context.Books.Include(b => b.Authors).Single(b => b.Id == authorBook.BookId);
+            if(a != null && b!= null)
+            {
+                if(authorBook.Operation=="addAuthor")
+                {
+                    b.Authors = new List<Author>();
+                    b.Authors.Add(a);
+                    context.SaveChanges();
+                    return true;
+                }
+                /*else if(authorBook.Operation=="removeAuthor")
+                {
+                    b.Authors = new List<Author>();
+                        b.Authors.Remove(a);
+                        context.SaveChanges();
+                        return true;
+                }*/
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
 
+        }
     }
 }

@@ -13,5 +13,9 @@ namespace BookShopCourseWork.Data.Interfaces
         public bool ChangeStatus(ChangeStatus changeStatus);
         public List<Order> GetOrders();
         public List<Order> GetOrdersByUser(string email);
+        public Order GetOrderById(string email, int Id);
+        public List<Order> GetOrderByStatus(string status);
+        
+        public Order GetOrderByIdAdmin(int Id);
     }
 }

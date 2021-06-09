@@ -1,0 +1,55 @@
+@using BookShopCourseWork.Models.AdminController;
+@using BookShopCourseWork.Extensions;
+@using BookShopCourseWork.Models.Enums;
+@using System;
+@model OrderAndUserInfo;
+@{
+    
+    ViewData["Title"] = "View order";
+    ViewData["ActiveTab"] = "Orders";
+}
+<div class="container mt-3">
+    <h4>№@Model.Order.Id</h4>
+    <hr>
+    <span class="fw-bold">First name: </span> @Model.FirstName<br>
+    <span class="fw-bold">Last name: </span> @Model.LastName<br>
+    <span class="fw-bold">Email: </span> @Model.Order.UserEmail<br>
+    <span class="fw-bold">Address: </span> @Model.Order.Address<br>
+    <span class="fw-bold">City: </span> @Model.Order.City<br>
+    <span class="fw-bold">Notes: </span> @Model.Order.Notes<br>
+    <span class="fw-bold">Date: </span> @Model.Order.Date<br>
+    <span class="fw-bold">Status: </span>
+    <select id="status" class="form-control">
+        <option value="SENT">Sent</option>
+        <option value="PROCESSING">Processing</option>
+        <option value="DELIVERED">Delivered</option>
+        <option value="CANCELLED">Cancelled</option>
+    </select>
+    <button type="submit" class="btn btn-primary mt-3" onclick="changeStatusOrder(@Model.Order.Id)">Change status</button>
+    <script>
+        document.getElementById("status").value = "@Model.Order.Status";
+    </script>
+    <div class="row mt-3">
+        <table class="table table-striped table-primary">
+            <thead>
+                <tr>
+                    <th scope="col">Title book</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (BookQuantity bq in @Model.Order.BookQuantities)
+                {
+                    <tr><td><a href="../../Book/@bq.Book.Id">@bq.Book.Title</a></td><td>@bq.Quantity</td><td>€ @((bq.Quantity*bq.Book.Price).ToString("0.00"))</td></tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+    <div class="row">
+        <div class="col">
+            <p class="fw-bold fs-4">Total: € @Model.Order.Total</p>
+        </div>
+    </div>
+</div>

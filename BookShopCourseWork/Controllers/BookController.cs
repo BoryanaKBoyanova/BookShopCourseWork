@@ -130,7 +130,8 @@ namespace BookShopCourseWork.Controllers
         {
                 if (ModelState.IsValid)
                 {
-                    return Ok(bookService.EditBook(book));
+                    bookService.EditBook(book);
+                    return RedirectToAction("EditBook", "Admin", new { area = "" });
                 }
                 else
                 {

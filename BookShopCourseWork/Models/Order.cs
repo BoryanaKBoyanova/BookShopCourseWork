@@ -19,6 +19,8 @@
 
         public double Total {get; set;}
 
+        public DateTime Date {get; set;}
+
         [Required]
         public string PhoneNumber {get; set;}
 

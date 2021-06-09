@@ -1,0 +1,38 @@
+@using BookShopCourseWork.Models;
+@using BookShopCourseWork.Extensions;
+@using BookShopCourseWork.Models.Enums;
+@using System;
+@model Order;
+@{
+    ViewData["Title"] = "View order";
+}
+<div class="container">
+    <span class="fw-bold">Address: </span> @Model.Address<br>
+    <span class="fw-bold">City: </span> @Model.City<br>
+    <span class="fw-bold">Notes: </span> @Model.Notes<br>
+    <span class="fw-bold">Date: </span> @Model.Date<br>
+    <span class="fw-bold">Status: </span> @Enums.GetEnumDescription((OrderStatus)Enum.Parse(typeof(OrderStatus), Model.Status))<br>
+    <div class="row">
+        <table class="table table-striped table-primary">
+            <thead>
+                <tr>
+                    <th scope="col">Title book</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (BookQuantity bq in @Model.BookQuantities)
+                {
+                    <tr><td><a href="../../Book/@bq.Book.Id">@bq.Book.Title</a></td><td>@bq.Quantity</td><td>€ @((bq.Quantity*bq.Book.Price).ToString("0.00"))</td></tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+    <div class="row">
+        <div class="col">
+            <p class="fw-bold fs-4">Total: € @Model.Total</p>
+        </div>
+    </div>
+</div>

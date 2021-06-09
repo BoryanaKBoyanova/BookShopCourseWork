@@ -1,12 +1,22 @@
-﻿@using BookShopCourseWork.Models;
+﻿@using Microsoft.AspNetCore.Identity
+@using BookShopCourseWork.Extensions;
+@using BookShopCourseWork.Models
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
 @using BookShopCourseWork.ViewModels;
 @model Book
 @{
     ViewData["Title"] = Model.Title;
+    bool isLoggedIn = SignInManager.IsSignedIn(User);
+    bool isAdmin = User.IsInRole("Admin");
 }
 <div class="row">
 <div class="col text-center"><img src="@Model.ImgUrl" width="300"></div>
 <div class="col">
+    @if(isLoggedIn && isAdmin)
+    {
+    <p>Id: @Model.Id</p>
+    }
     <h1 class="fs-3 fw-bold">@Model.Title</h1>
     <h1 class="fs-4 fw-bold">€ @Model.Price</h1>
     <h1 class="fs-5">Authors: @string.Join(", ", Model.Authors.Select(a=>a.ToString()).ToArray<string>())</h1>
@@ -28,7 +38,10 @@
                     </button>
                 </span>
             </div>
+    @if(isLoggedIn)
+    {
     <button class="btn btn-primary cart-button btn-block text-center fs-3" onclick="addToCart(@Model.Id, '@Model.Title')"><i class="fa fa-shopping-cart"></i> Add to cart </button>
+    }
 </div>
 </div>
 <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5">

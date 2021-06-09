@@ -1,10 +1,19 @@
 ﻿namespace BookShopCourseWork.Models.Enums
 {
-    enum OrderStatus
+    using System.ComponentModel;
+    public enum OrderStatus
     {
+        [Description("Sent")]
         SENT,
+
+        [Description("Processing")]
         PROCESSING,
+
+        [Description("Cancelled")]
         CANCELLED,
+
+        [Description("Delivered")]
         DELIVERED
+        
     }
 }

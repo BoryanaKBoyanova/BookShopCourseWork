@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using BookShopCourseWork.Models.OrderController;
 using BookShopCourseWork.Services.Interfaces;
 using BookShopCourseWork.Services;
+using BookShopCourseWork.Models;
 using Newtonsoft.Json;
 namespace BookShopCourseWork.Controllers
 {
@@ -69,6 +70,27 @@ namespace BookShopCourseWork.Controllers
             {
                 return Ok(orderService.ChangeStatus(changeStatus));
                     
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+        [Authorize(Policy = "loginRequired")] 
+        [HttpGet("ViewOrder/{id}")]
+        public IActionResult ViewOrder(int id)
+        {
+            if(id!=0)
+            {
+                Order o = orderService.GetOrderById(User.Identity.Name, id);
+                if(o!=null)
+                {
+                    return View(o);
+                }
+                else
+                {
+                    return RedirectToAction("404", "Error");
+                }
             }
             else
             {

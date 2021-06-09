@@ -32,14 +32,15 @@ namespace BookShopCourseWork
             services.AddDbContext<ApplicationDbContext>();
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-              services.AddAuthorization(options => {  
-                options.AddPolicy("loginRequired",  
-                    builder => builder.RequireRole("Admin", "User"));  
-                options.AddPolicy("adminOnly",  
-                    builder => builder.RequireRole("Admin"));  
-            });  
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("loginRequired",
+                    builder => builder.RequireRole("Admin", "User"));
+                options.AddPolicy("adminOnly",
+                    builder => builder.RequireRole("Admin"));
+            });
             services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false).AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();;
+                .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders(); ;
             services.AddScoped<IUserClaimsPrincipalFactory<User>, ApplicationUserClaimsPrincipalFactory>();
             services.AddControllersWithViews();
         }
@@ -65,6 +66,7 @@ namespace BookShopCourseWork
 
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseStatusCodePagesWithReExecute("/Error/{0}");
 
             app.UseEndpoints(endpoints =>
             {

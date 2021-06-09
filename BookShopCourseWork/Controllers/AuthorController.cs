@@ -47,6 +47,19 @@ namespace BookShopCourseWork.Controllers
                 return BadRequest();
             }
         }
+        [HttpPost("UpdateAuthorBook")]
+        public IActionResult UpdateAuthorBook(UpdateAuthorBook authorBook)
+        {
+            if(ModelState.IsValid)
+            {
+                authorService.UpdateAuthorBook(authorBook);
+                return RedirectToAction("UpdateAuthorBook", "Admin", new { area = ""});
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
 
     }
 }

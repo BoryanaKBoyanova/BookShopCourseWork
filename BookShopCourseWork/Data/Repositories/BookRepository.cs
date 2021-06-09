@@ -62,10 +62,22 @@ namespace BookShopCourseWork.Data.Repositories
             Book b = context.Books.Find(book.Id);
             if (b != null)
             {
-                b.Title = book.Title;
-                b.Description = book.Description;
-                b.Price = book.Price;
-                b.ImgUrl = book.ImgUrl;
+                if(book.Title != null)
+                {
+                    b.Title = book.Title;
+                }
+                if(book.Description != null)
+                {
+                    b.Description = book.Description;
+                }
+                if(book.Price != null)
+                {
+                    b.Price = Convert.ToDouble(book.Price);
+                }
+                if(book.ImgUrl != null)
+                {
+                    b.ImgUrl = book.ImgUrl;
+                }
                 context.SaveChanges();
                 return true;
             }

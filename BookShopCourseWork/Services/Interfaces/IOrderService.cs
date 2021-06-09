@@ -12,5 +12,8 @@ namespace BookShopCourseWork.Services.Interfaces
         public bool CreateOrder(CreateOrder order, string userEmail);
         public bool ChangeStatus(ChangeStatus changeStatus);
         public List<Order> GetOrdersByUser(string email);
+        public Order GetOrderById(string email, int id);
+        public List<Order> GetOrdersByStatus(string status);
+        public Order GetOrderByIdAdmin(int Id);
     }
 }

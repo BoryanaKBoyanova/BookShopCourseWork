@@ -6,3 +6,10 @@
 }
 @model List<Order>
 <h4>View orders</h4>
+<hr>
+<ul class="list-group">
+@foreach (Order order in Model)
+{
+    <li class="list-group-item"><a class="link-primary" href="/Order/ViewOrder/@order.Id">@order.Date € @order.Total</a></li>
+}
+</ul>
