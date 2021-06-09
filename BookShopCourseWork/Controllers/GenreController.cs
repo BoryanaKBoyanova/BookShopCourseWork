@@ -46,12 +46,12 @@ namespace BookShopCourseWork.Controllers
                 return BadRequest();
             }
         }
-        [HttpPost("AddGenreBok")]
-        public IActionResult AddGenreBook(AddGenreBook addGenreBook)
+        [HttpPost("UpdateGenreBook")]
+        public IActionResult UpdateGenreBook(UpdateGenreBook genreBook)
         {
             if(ModelState.IsValid)
             {
-                return Ok(genreService.AddGenreBook(addGenreBook));
+                return Ok(genreService.UpdateGenreBook(genreBook));
             }
             else
             {

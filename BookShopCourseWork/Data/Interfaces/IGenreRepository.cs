@@ -13,7 +13,7 @@ namespace BookShopCourseWork.Data.Interfaces
 
         public bool DeleteGenre(DeleteGenre genre);
 
-        public bool AddGenreBook(AddGenreBook addGenreBook);
+        public bool UpdateGenreBook(UpdateGenreBook genreBook);
 
     }
 }

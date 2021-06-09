@@ -43,10 +43,10 @@ namespace BookShopCourseWork.Data.Repositories
                 return false;
             }
         }
-        public bool AddGenreBook(AddGenreBook addGenreBook)
+        public bool UpdateGenreBook(UpdateGenreBook genreBook)
         {
-            Genre g = context.Genres.Find(addGenreBook.GenreId);
-            Book b = context.Books.Find(addGenreBook.BookId);
+            Genre g = context.Genres.Find(genreBook.GenreId);
+            Book b = context.Books.Find(genreBook.BookId);
             if(g == null || b == null)
             {
                 return false;

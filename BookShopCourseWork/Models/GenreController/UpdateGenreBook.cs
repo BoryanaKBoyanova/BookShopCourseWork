@@ -6,7 +6,7 @@ namespace BookShopCourseWork.Models.GenreController
     using System.Threading.Tasks;
     using System.ComponentModel.DataAnnotations;
 
-    public class AddGenreBook
+    public class UpdateGenreBook
     {
         [Required]
         public int GenreId { get; set; }

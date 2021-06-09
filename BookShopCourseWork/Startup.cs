@@ -86,6 +86,10 @@ namespace BookShopCourseWork
                     name: "author",
                     pattern: "{controller=Author}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
+                endpoints.MapControllerRoute(
+                    name: "publisher",
+                    pattern: "{controller=Publisher}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }

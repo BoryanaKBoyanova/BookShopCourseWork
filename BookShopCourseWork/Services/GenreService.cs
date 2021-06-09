@@ -25,9 +25,9 @@ namespace BookShopCourseWork.Services
         {
             return repository.DeleteGenre(genre);
         }
-        public bool AddGenreBook(AddGenreBook addGenreBook)
+        public bool UpdateGenreBook(UpdateGenreBook updateGenreBook)
         {
-            return repository.AddGenreBook(addGenreBook);
+            return repository.UpdateGenreBook(updateGenreBook);
         }
     }
 }
