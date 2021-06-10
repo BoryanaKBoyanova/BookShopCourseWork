@@ -20,6 +20,8 @@ namespace BookShopCourseWork.Views.Admin
 
         public static string AddAuthor => "AddAuthor";
 
+        public static string DeleteAuthor => "DeleteAuthor";
+
         public static string Books => "Books";
         public static string Orders => "Orders";
 
@@ -33,6 +35,7 @@ namespace BookShopCourseWork.Views.Admin
         public static string UpdateAuthorBookNavClass(ViewContext viewContext) => PageNavClass(viewContext, UpdateAuthorBook);
         public static string ViewAllAuthorsNavClass(ViewContext viewContext) => PageNavClass(viewContext, ViewAllAuthors);
         public static string AddAuthorNavClass(ViewContext viewContext) => PageNavClass(viewContext, AddAuthor);
+        public static string DeleteAuthorNavClass(ViewContext viewContext) => PageNavClass(viewContext, DeleteAuthor);
 
         public static string BooksNavClassTab(ViewContext viewContext) => PageNavClassTab(viewContext, Books);
         public static string BooksButtonTab(ViewContext viewContext) => ButtonTab(viewContext, Books);

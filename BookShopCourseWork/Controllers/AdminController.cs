@@ -107,6 +107,12 @@ namespace BookShopCourseWork.Controllers
         {
             return View();
         }
+        [HttpGet("DeleteAuthor")]
+        public IActionResult DeleteAuthor()
+        {
+            return View();
+        }
+
         [HttpGet("Success")]
         public IActionResult Success([FromQuery]string message)
         {
@@ -115,6 +121,20 @@ namespace BookShopCourseWork.Controllers
             if(pi!=null)
             {
                 return View(new Message(){ MessageString = pi.GetValue(new MessagesSuccess()).ToString()});
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+        [HttpGet("Failed")]
+        public IActionResult Failed([FromQuery]string message)
+        {
+            Type t = typeof(MessagesFailed);
+            PropertyInfo pi = t.GetProperty(message);
+            if(pi!=null)
+            {
+                return View(new Message(){ MessageString = pi.GetValue(new MessagesFailed()).ToString()});
             }
             else
             {

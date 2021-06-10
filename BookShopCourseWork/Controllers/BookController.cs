@@ -3,6 +3,7 @@ using System;
 using BookShopCourseWork.Extensions;
 using System.Collections.Generic;
 using System.Linq;
+using BookShopCourseWork.Models.AdminController;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -130,8 +131,15 @@ namespace BookShopCourseWork.Controllers
         {
                 if (ModelState.IsValid)
                 {
-                    bookService.EditBook(book);
-                    return RedirectToAction("EditBook", "Admin", new { area = "" });
+                    bool status = bookService.EditBook(book);
+                    if(status)
+                    {
+                        return RedirectToAction("Success", "Admin", new { message = "EditBook" });
+                    }
+                    else
+                    {
+                        return RedirectToAction("Failed", "Admin", new { message = "EditBook" });
+                    }
                 }
                 else
                 {
@@ -144,8 +152,15 @@ namespace BookShopCourseWork.Controllers
         {
                 if (ModelState.IsValid)
                 {
-                    bookService.CreateBook(book);
-                    return RedirectToAction("CreateBook", "Admin", new { area = "" });
+                    bool status = bookService.CreateBook(book);
+                    if(status)
+                    {
+                        return RedirectToAction("Success", "Admin", new { message = "CreateBook" });
+                    }
+                    else
+                    {
+                        return RedirectToAction("Failed", "Admin", new { message = "CreateBook" });
+                    }
                 }
                 else
                 {

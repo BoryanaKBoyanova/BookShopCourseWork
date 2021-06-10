@@ -14,7 +14,7 @@ using System.Net;
 
 namespace BookShopCourseWork.Controllers
 {
-    [Authorize(Policy = "adminOnly")] 
+    [Authorize(Policy = "adminOnly")]
     [Route("~/Author")]
     public class AuthorController : Controller
     {
@@ -26,9 +26,17 @@ namespace BookShopCourseWork.Controllers
         [HttpPost("AddAuthor")]
         public IActionResult AddAuthor(AddAuthor author)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return Ok(authorService.AddAuthor(author));
+                bool status = authorService.AddAuthor(author);
+                if (status)
+                {
+                    return RedirectToAction("Success", "Admin", new { message = "AddAuthor" });
+                }
+                else
+                {
+                    return RedirectToAction("Failed", "Admin", new { message = "AddAuthor" });
+                }
             }
             else
             {
@@ -38,9 +46,17 @@ namespace BookShopCourseWork.Controllers
         [HttpPost("DeleteAuthor")]
         public IActionResult DeleteAuthor(DeleteAuthor author)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return Ok(authorService.DeleteAuthor(author));
+                bool status = authorService.DeleteAuthor(author);
+                if (status)
+                {
+                    return RedirectToAction("Success", "Admin", new { message = "DeleteAuthor" });
+                }
+                else
+                {
+                    return RedirectToAction("Failed", "Admin", new { message = "DeleteAuthor" });
+                }
             }
             else
             {
@@ -50,10 +66,35 @@ namespace BookShopCourseWork.Controllers
         [HttpPost("UpdateAuthorBook")]
         public IActionResult UpdateAuthorBook(UpdateAuthorBook authorBook)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                authorService.UpdateAuthorBook(authorBook);
-                return RedirectToAction("UpdateAuthorBook", "Admin", new { area = ""});
+                bool status = authorService.UpdateAuthorBook(authorBook);
+                if (authorBook.Operation == "addAuthor")
+                {
+                    if (status)
+                    {
+                        return RedirectToAction("Success", "Admin", new { message = "BookAuthorConnected" });
+                    }
+                    else
+                    {
+                        return RedirectToAction("Failed", "Admin", new { message = "BookAuthorConnected" });
+                    }
+                }
+                else if (authorBook.Operation == "removeAuthor")
+                {
+                    if (status)
+                    {
+                        return RedirectToAction("Success", "Admin", new { message = "BookAuthorDisconnected" });
+                    }
+                    else
+                    {
+                        return RedirectToAction("Failed", "Admin", new { message = "BookAuthorDisconnected" });
+                    }
+                }
+                else
+                {
+                    return BadRequest();
+                }
             }
             else
             {

@@ -9,9 +9,15 @@ namespace BookShopCourseWork.Models.AuthorController
     public class AddAuthor
     {
         [Required]
+        [MinLength(2, ErrorMessage = "Author first name must be minimum 2 symbols!")]
+        [MaxLength(25, ErrorMessage = "Author first name must be maximum 25 symbols!")]
+        [Display(Name = "First name")]
         public string FirstName {get; set;}
+
         [Required]
+        [MinLength(2, ErrorMessage = "Author last name must be minimum 2 symbols!")]
+        [MaxLength(25, ErrorMessage = "Author last name must be maximum 25 symbols!")]
+        [Display(Name = "Last name")]
         public string LastName {get; set;}
-       
     }
 }

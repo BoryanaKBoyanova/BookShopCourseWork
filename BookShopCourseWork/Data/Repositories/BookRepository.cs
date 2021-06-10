@@ -18,7 +18,7 @@ namespace BookShopCourseWork.Data.Repositories
         }
         public bool CreateBook(CreateBook book)
         {
-            if (context.Books.Any(b => b.Title == book.Title))
+            if (context.Books.Any(b => b.Title == book.Title && b.Publisher.PublisherName == book.PublisherName))
             {
                 return false;
             }
