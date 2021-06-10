@@ -17,6 +17,9 @@ namespace BookShopCourseWork.Views.Admin
 
         public static string UpdateAuthorBook => "UpdateAuthorBook";
         public static string ViewAllAuthors => "ViewAllAuthors";
+        public static string AddPublisher => "AddPublisher";
+        public static string DeletePublisher => "DeletePublisher";
+        public static string UpdatePublisherBook => "UpdatePublisherBook";
 
         public static string AddAuthor => "AddAuthor";
 
@@ -24,6 +27,7 @@ namespace BookShopCourseWork.Views.Admin
         public static string Orders => "Orders";
 
         public static string Authors => "Authors";
+        public static string Publishers => "Publishers";
 
         public static string CreateBookNavClass(ViewContext viewContext) => PageNavClass(viewContext, CreateBook);
         public static string EditBookNavClass(ViewContext viewContext) => PageNavClass(viewContext, EditBook);
@@ -33,10 +37,15 @@ namespace BookShopCourseWork.Views.Admin
         public static string UpdateAuthorBookNavClass(ViewContext viewContext) => PageNavClass(viewContext, UpdateAuthorBook);
         public static string ViewAllAuthorsNavClass(ViewContext viewContext) => PageNavClass(viewContext, ViewAllAuthors);
         public static string AddAuthorNavClass(ViewContext viewContext) => PageNavClass(viewContext, AddAuthor);
+        public static string AddPublisherNavClass(ViewContext viewContext) => PageNavClass(viewContext, AddPublisher);
+        public static string DeletePublisherNavClass(ViewContext viewContext) => PageNavClass(viewContext, DeletePublisher);
+        public static string UpdatePublisherBookNavClass(ViewContext viewContext) => PageNavClass(viewContext, UpdatePublisherBook);
 
+
+        public static string PublishersNavClassTab(ViewContext viewContext) => PageNavClassTab(viewContext, Publishers);
         public static string BooksNavClassTab(ViewContext viewContext) => PageNavClassTab(viewContext, Books);
         public static string BooksButtonTab(ViewContext viewContext) => ButtonTab(viewContext, Books);
-
+        public static string PublishersButtonTab(ViewContext viewContext) => ButtonTab(viewContext, Publishers);
         public static string OrdersNavClassTab(ViewContext viewContext) => PageNavClassTab(viewContext, Orders);
 
         public static string OrdersButtonTab(ViewContext viewContext) => ButtonTab(viewContext, Orders);
