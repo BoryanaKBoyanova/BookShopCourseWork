@@ -113,6 +113,21 @@ namespace BookShopCourseWork.Controllers
             return View();
         }
 
+        [HttpGet("UpdatePublisherBook")]
+        public IActionResult UpdatePublisherBook()
+        {
+            return View();
+        }
+        [HttpGet("AddPublisher")]
+        public IActionResult AddPublisher()
+        {
+            return View();
+        }
+        [HttpGet("DeletePublisher")]
+        public IActionResult DeletePublisher()
+        {
+            return View();
+        }
         [HttpGet("Success")]
         public IActionResult Success([FromQuery]string message)
         {

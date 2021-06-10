@@ -42,8 +42,8 @@
             </a>
           </div>
         </div>
-
       </div>
+
       <div class="accordion-item">
         <h2 class="accordion-header" id="headingThree">
           <button class="accordion-button bg-primary text-secondary @AdminNav.AuthorsButtonTab(ViewContext)" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
@@ -66,8 +66,28 @@
             </a>
           </div>
         </div>
-
       </div>
+
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+          <button class="accordion-button bg-primary text-secondary @AdminNav.PublishersButtonTab(ViewContext)" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+            <span><i class="far fa-newspaper"></i> Publishers</span>
+          </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse @AdminNav.PublishersNavClassTab(ViewContext)" aria-labelledby="headingTwo" data-bs-parent="#accordion">
+          <div class="accordion-body">
+            <a class="nav-link @AdminNav.UpdatePublisherBookNavClass(ViewContext)" asp-controller="Admin" asp-action="UpdatePublisherBook">
+              <i class="fas fa-link"></i> Update publisher and book
+            </a>
+            <a class="nav-link @AdminNav.AddPublisherNavClass(ViewContext)" asp-controller="Admin" asp-action="AddPublisher">
+              <i class="fas fa-plus"></i> Add publisher
+            </a>
+            <a class="nav-link @AdminNav.DeletePublisherNavClass(ViewContext)" asp-controller="Admin" asp-action="DeletePublisher">
+              <i class="fas fa-minus"></i> Delete publisher
+            </a>
+          </div>
+        </div>      
+       </div> 
     </div>
   </div>
   <div class="col-md-8 mt-3 card ml-3 mr-3" id="tabContent">

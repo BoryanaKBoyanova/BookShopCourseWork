@@ -1,0 +1,21 @@
+@{
+    ViewData["ActivePage"] = "DeletePublisher";
+    ViewData["ActiveTab"] = "Publishers";
+}
+@using BookShopCourseWork.Models.PublisherController
+@model DeletePublisher
+<div class="mt-3 mr-3 ml-3 mb-3">
+    <h4>Delete publisher</h4>
+    <hr>
+    <form asp-controller="Publisher" asp-action="DeletePublisher">
+        <div class="row">
+            <div class="col">
+                <label asp-for="PublisherId"></label>
+                <input type="text" asp-for="PublisherId" class="form-control">
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-primary">Delete publisher</button>
+            </div>
+        </div>
+        </form>
+</div>
