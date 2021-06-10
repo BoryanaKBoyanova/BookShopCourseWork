@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Reflection;
 using BookShopCourseWork.Extensions;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,8 @@ namespace BookShopCourseWork.Controllers
 
         private IGenreService genreService {get; set;}
 
+        private IAuthorService authorService {get; set;}
+
         private readonly UserManager<User> _userManager;
         public AdminController(UserManager<User> userManager)
         {
@@ -33,6 +36,7 @@ namespace BookShopCourseWork.Controllers
             bookService = new BookService();
             orderService = new OrderService();
             genreService = new GenreService();
+            authorService = new AuthorService();
 
         }
         [HttpGet("CreateBook")]
@@ -92,6 +96,30 @@ namespace BookShopCourseWork.Controllers
         public IActionResult UpdateAuthorBook()
         {
             return View();
+        }
+        [HttpGet("ViewAllAuthors")]
+        public IActionResult ViewAllAuthors()
+        {
+            return View(authorService.GetAllAuthors());
+        }
+        [HttpGet("AddAuthor")]
+        public IActionResult AddAuthor()
+        {
+            return View();
+        }
+        [HttpGet("Success")]
+        public IActionResult Success([FromQuery]string message)
+        {
+            Type t = typeof(MessagesSuccess);
+            PropertyInfo pi = t.GetProperty(message);
+            if(pi!=null)
+            {
+                return View(new Message(){ MessageString = pi.GetValue(new MessagesSuccess()).ToString()});
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
     }
 }

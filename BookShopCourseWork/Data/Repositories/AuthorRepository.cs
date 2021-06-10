@@ -16,6 +16,10 @@ namespace BookShopCourseWork.Data.Repositories
         {
             context = new ApplicationDbContext();
         }
+        public List<Author> GetAllAuthors()
+        {
+            return context.Authors.ToList();
+        }
 
         public bool AddAuthor(AddAuthor author)
         {
@@ -47,23 +51,29 @@ namespace BookShopCourseWork.Data.Repositories
         public bool UpdateAuthorBook(UpdateAuthorBook authorBook)
         {
             Author a = context.Authors.Find(authorBook.AuthorId);
-            Book b = context.Books.Include(b => b.Authors).Single(b => b.Id == authorBook.BookId);
+            Book b = context.Books.Find(authorBook.BookId);
             if(a != null && b!= null)
             {
+                context.Entry(b).Collection("Authors").Load();
                 if(authorBook.Operation=="addAuthor")
                 {
-                    b.Authors = new List<Author>();
                     b.Authors.Add(a);
                     context.SaveChanges();
                     return true;
                 }
-                /*else if(authorBook.Operation=="removeAuthor")
+                else if(authorBook.Operation=="removeAuthor")
                 {
-                    b.Authors = new List<Author>();
+                    if(b.Authors.Contains(a))
+                    {
                         b.Authors.Remove(a);
                         context.SaveChanges();
                         return true;
-                }*/
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
                 else
                 {
                     return false;

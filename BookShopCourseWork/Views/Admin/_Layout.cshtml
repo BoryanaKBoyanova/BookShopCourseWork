@@ -55,6 +55,12 @@
             <a class="nav-link @AdminNav.UpdateAuthorBookNavClass(ViewContext)" asp-controller="Admin" asp-action="UpdateAuthorBook">
               <i class="fas fa-link"></i> Update author and book
             </a>
+            <a class="nav-link @AdminNav.ViewAllAuthorsNavClass(ViewContext)" asp-controller="Admin" asp-action="ViewAllAuthors">
+              <i class="fas fa-eye"></i> View all authors
+            </a>
+            <a class="nav-link @AdminNav.AddAuthorNavClass(ViewContext)" asp-controller="Admin" asp-action="AddAuthor">
+              <i class="fas fa-plus"></i> Add author
+            </a>
           </div>
         </div>
 

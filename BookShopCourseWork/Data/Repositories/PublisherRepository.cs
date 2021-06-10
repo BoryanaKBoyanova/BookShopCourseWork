@@ -46,20 +46,40 @@ namespace BookShopCourseWork.Data.Repositories
         }
         public bool UpdatePublisherBook(UpdatePublisherBook publisherBook)
         {
-            // Publisher p = context.Publishers.Find(publisherBook.PublisherId);
-            // Book b = context.Books.Include(b => b.Publisher).Single(b => b.Id == publisherBook.BookId);
-            // if(p == null && b == null)
-            // {
-            //     return false;
-            // }
-            // else
-            // {
-            //     b.Publisher = new List<Publisher>();
-            //     b.Publisher.Add(p);
-            //     context.SaveChanges();
-            //     return true;
-            // }
-            return true;
+            Publisher p = context.Publishers.Find(publisherBook.PublisherId);
+            Book b = context.Books.Find(publisherBook.BookId);
+            if(p != null && b!= null)
+            {
+                context.Entry(b).Collection("Authors").Load();
+                if(publisherBook.Operation=="addPublisher")
+                {
+                    b.Publisher = p;
+                    context.SaveChanges();
+                    return true;
+                }
+                else if(publisherBook.Operation=="removePublisher")
+                {
+                    context.Entry(p).Collection("Books").Load();
+                    if(p.Books.Contains(b))
+                    {
+                        p.Books.Remove(b);
+                        context.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
         }
 
         

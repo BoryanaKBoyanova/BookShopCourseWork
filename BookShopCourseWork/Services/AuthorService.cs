@@ -29,5 +29,9 @@ namespace BookShopCourseWork.Services
         {
             return repository.UpdateAuthorBook(authorBook);
         }
+        public List<Author> GetAllAuthors()
+        {
+            return repository.GetAllAuthors();
+        }
     }
 }
