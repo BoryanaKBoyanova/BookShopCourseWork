@@ -13,10 +13,8 @@ function addToCartOneQuantity(id, title) {
         if(indexBook != -1)
         {
             let book = cart[indexBook];
-            if (book["bookId"] == id) {
-                book["quantity"] += 1;
-                if (book["quantity"] > 10) book["quantity"] = 10;
-            }
+            book["quantity"] += 1;
+            if (book["quantity"] > 10) book["quantity"] = 10;
         }
         else
         {
@@ -39,16 +37,16 @@ function addToCart(id, title) {
     let cart = getCookie("cart");
     if (cart != "") {
         cart = JSON.parse(cart);
-        let exists = false;
-        cart.forEach(book => {
-            if (book["bookId"] == id) {
-                book["quantity"] += parseInt($("#quantity").val());
-                if (book["quantity"] > 10) book["quantity"] = 10;
-                exists = true;
-                return 0;
-            }
-        });
-        if (!exists) {
+        cart = sortArrayCart(cart);
+        let indexBook = binarySearchCart(cart, id);
+        if(indexBook != -1)
+        {
+            let book = cart[indexBook];
+            book["quantity"] += parseInt($("#quantity").val());
+            if (book["quantity"] > 10) book["quantity"] = 10;
+        }
+        else
+        {
             cart.push({ bookId: id, quantity: parseInt($("#quantity").val()) });
         }
     }
@@ -168,13 +166,16 @@ function deleteFromShoppingCart(id) {
     let cart = getCookie("cart");
     if (cart != "") {
         cart = JSON.parse(cart);
-        for (let index = 0; index < cart.length; index++) {
+        cart = sortArrayCart(cart);
+        let indexBook = binarySearchCart(cart, id);
+        if(indexBook != -1)
+        {
             if (cart[index]["bookId"] == id) {
-                cart.splice(index, 1);
+                cart.splice(indexBook, 1);
             }
+            setCookie("cart", JSON.stringify(cart), 1);
+            location.reload();
         }
-        setCookie("cart", JSON.stringify(cart), 1);
-        location.reload();
     }
 }
 function updateShoppingCart() {

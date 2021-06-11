@@ -15,7 +15,11 @@ namespace BookShopCourseWork.Data.Repositories
         {
             context = new ApplicationDbContext();
         }
-        public bool AddGenre(Genre genre)
+        public List<Genre> GetAllGenres()
+        {
+            return context.Genres.ToList();
+        }
+        public bool AddGenre(AddGenre genre)
         {
             if(context.Genres.Any(g => g.GenreName == genre.GenreName))
             {
@@ -23,7 +27,7 @@ namespace BookShopCourseWork.Data.Repositories
             }
             else
             {
-                context.Genres.Add(genre);
+                context.Genres.Add(new Genre(){GenreName = genre.GenreName});
                 context.SaveChanges();
                 return true;
             }
@@ -47,16 +51,36 @@ namespace BookShopCourseWork.Data.Repositories
         {
             Genre g = context.Genres.Find(genreBook.GenreId);
             Book b = context.Books.Find(genreBook.BookId);
-            if(g == null || b == null)
+            if(g != null && b != null)
             {
-                return false;
+                context.Entry(b).Collection("Genres").Load();
+                if(genreBook.Operation=="addGenre")
+                {
+                    b.Genres.Add(g);
+                    context.SaveChanges();
+                    return true;
+                }
+                else if(genreBook.Operation=="removeGenre")
+                {
+                    if(b.Genres.Contains(g))
+                    {
+                        b.Genres.Remove(g);
+                        context.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
-                b.Genres = new List<Genre>();
-                b.Genres.Add(g);
-                context.SaveChanges();
-                return true;
+                return false;
             }
         }
     }

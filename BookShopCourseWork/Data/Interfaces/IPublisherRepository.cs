@@ -10,10 +10,10 @@ namespace BookShopCourseWork.Data.Interfaces
 {
     interface IPublisherRepository
     {
-        public bool AddPublisher(Publisher publisher);
-
+        public bool AddPublisher(AddPublisher publisher);
         public bool DeletePublisher(DeletePublisher publisher);
         public bool UpdatePublisherBook(UpdatePublisherBook publisherBook);
+        public List<Publisher> GetAllPublishers();
 
     }
 }

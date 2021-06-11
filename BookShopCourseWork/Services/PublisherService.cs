@@ -17,7 +17,7 @@ namespace BookShopCourseWork.Services
         {
             repository = new PublisherRepository();
         }
-        public bool AddPublisher(Publisher publisher)
+        public bool AddPublisher(AddPublisher publisher)
         {
             return repository.AddPublisher(publisher);
         }
@@ -28,6 +28,10 @@ namespace BookShopCourseWork.Services
         public bool UpdatePublisherBook(UpdatePublisherBook publisherBook)
         {
             return repository.UpdatePublisherBook(publisherBook);
+        }
+        public List<Publisher> GetAllPublishers()
+        {
+            return repository.GetAllPublishers();
         }
     }
 }

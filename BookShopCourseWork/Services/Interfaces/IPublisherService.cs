@@ -9,8 +9,9 @@ namespace BookShopCourseWork.Services.Interfaces
 {
     public interface IPublisherService
     {
-        public bool AddPublisher(Publisher publisher);
+        public bool AddPublisher(AddPublisher publisher);
         public bool DeletePublisher(DeletePublisher publisher);
         public bool UpdatePublisherBook(UpdatePublisherBook publisherBook);
+        public List<Publisher> GetAllPublishers();
     }
 }

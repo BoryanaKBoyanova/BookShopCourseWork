@@ -17,7 +17,7 @@ namespace BookShopCourseWork.Services
         {
             repository = new GenreRepository();
         }
-        public bool AddGenre(Genre genre)
+        public bool AddGenre(AddGenre genre)
         {
             return repository.AddGenre(genre);
         }
@@ -28,6 +28,10 @@ namespace BookShopCourseWork.Services
         public bool UpdateGenreBook(UpdateGenreBook updateGenreBook)
         {
             return repository.UpdateGenreBook(updateGenreBook);
+        }
+        public List<Genre> GetAllGenres()
+        {
+            return repository.GetAllGenres();
         }
     }
 }

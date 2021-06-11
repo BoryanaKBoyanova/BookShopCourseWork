@@ -12,10 +12,12 @@
             <div class="col">
                 <label asp-for="BookId" ></label>
                 <input type="text" asp-for="BookId" class="form-control">
+                <span asp-validation-for="BookId" class="text-danger"></span>
             </div>
             <div class="col">
                 <label asp-for="AuthorId" ></label>
                 <input type="text" asp-for="AuthorId" class="form-control">
+                <span asp-validation-for="AuthorId" class="text-danger"></span>
             </div>
         </div>
         <div class="row mt-3 mb-3">

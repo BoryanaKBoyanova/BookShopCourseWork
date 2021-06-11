@@ -28,6 +28,7 @@ namespace BookShopCourseWork.Controllers
         private IGenreService genreService {get; set;}
 
         private IAuthorService authorService {get; set;}
+        private IPublisherService publisherService {get; set;}
 
         private readonly UserManager<User> _userManager;
         public AdminController(UserManager<User> userManager)
@@ -37,6 +38,7 @@ namespace BookShopCourseWork.Controllers
             orderService = new OrderService();
             genreService = new GenreService();
             authorService = new AuthorService();
+            publisherService = new PublisherService();
 
         }
         [HttpGet("CreateBook")]
@@ -112,7 +114,11 @@ namespace BookShopCourseWork.Controllers
         {
             return View();
         }
-
+        [HttpGet("ViewAllPublishers")]
+        public IActionResult ViewAllPublishers()
+        {
+            return View(publisherService.GetAllPublishers());
+        }
         [HttpGet("UpdatePublisherBook")]
         public IActionResult UpdatePublisherBook()
         {
@@ -125,6 +131,26 @@ namespace BookShopCourseWork.Controllers
         }
         [HttpGet("DeletePublisher")]
         public IActionResult DeletePublisher()
+        {
+            return View();
+        }
+        [HttpGet("ViewAllGenres")]
+        public IActionResult ViewAllGenres()
+        {
+            return View(genreService.GetAllGenres());
+        }
+        [HttpGet("UpdateGenreBook")]
+        public IActionResult UpdateGenreBook()
+        {
+            return View();
+        }
+        [HttpGet("AddGenre")]
+        public IActionResult AddGenre()
+        {
+            return View();
+        }
+        [HttpGet("DeleteGenre")]
+        public IActionResult DeleteGenre()
         {
             return View();
         }

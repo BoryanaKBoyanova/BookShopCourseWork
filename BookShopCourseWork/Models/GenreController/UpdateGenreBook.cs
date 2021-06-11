@@ -13,6 +13,9 @@ namespace BookShopCourseWork.Models.GenreController
 
         [Required]
         public int BookId { get; set; }
+
+        [Required]
+        public string Operation {get; set;}
        
     }
 }

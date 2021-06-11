@@ -23,11 +23,19 @@ namespace BookShopCourseWork.Controllers
             publisherService = new PublisherService();
         }
         [HttpPost("AddPublisher")]
-        public IActionResult AddPublisher(Publisher publisher)
+        public IActionResult AddPublisher(AddPublisher publisher)
         {
             if(ModelState.IsValid)
             {
-                return Ok(publisherService.AddPublisher(publisher));
+                bool status = publisherService.AddPublisher(publisher);
+                if (status)
+                {
+                    return RedirectToAction("Success", "Admin", new { message = "AddPublisher" });
+                }
+                else
+                {
+                    return RedirectToAction("Failed", "Admin", new { message = "AddPublisher" });
+                }
             }
             else
             {
@@ -39,7 +47,15 @@ namespace BookShopCourseWork.Controllers
         {
             if(ModelState.IsValid)
             {
-                return Ok(publisherService.DeletePublisher(publisher));
+                bool status = publisherService.DeletePublisher(publisher);
+                if (status)
+                {
+                    return RedirectToAction("Success", "Admin", new { message = "DeletePublisher" });
+                }
+                else
+                {
+                    return RedirectToAction("Failed", "Admin", new { message = "DeletePublisher" });
+                }
             }
             else
             {
@@ -51,7 +67,15 @@ namespace BookShopCourseWork.Controllers
         {
             if(ModelState.IsValid)
             {
-                return Ok(publisherService.UpdatePublisherBook(publisherBook));
+                bool status = publisherService.UpdatePublisherBook(publisherBook);
+                if (status)
+                {
+                    return RedirectToAction("Success", "Admin", new { message = "BookPublisherConnected" });
+                }
+                else
+                {
+                    return RedirectToAction("Failed", "Admin", new { message = "BookPublisherConnected" });
+                }
             }
             else
             {

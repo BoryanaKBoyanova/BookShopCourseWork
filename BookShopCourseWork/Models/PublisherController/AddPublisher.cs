@@ -6,11 +6,11 @@ namespace BookShopCourseWork.Models.PublisherController
     using System.Threading.Tasks;
     using System.ComponentModel.DataAnnotations;
 
-    public class DeletePublisher
+    public class AddPublisher
     {
         [Required]
-        [Display(Name ="Publisher Id")]
-        public int PublisherId { get; set; }
+        [Display(Name ="Publisher name")]
+        public string PublisherName { get; set; }
        
     }
 }

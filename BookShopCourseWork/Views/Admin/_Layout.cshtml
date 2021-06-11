@@ -24,8 +24,8 @@
             </a>
           </div>
         </div>
-
       </div>
+
      <div class="accordion-item">
         <h2 class="accordion-header" id="headingTwo">
           <button class="accordion-button bg-primary text-secondary @AdminNav.OrdersButtonTab(ViewContext)" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
@@ -69,21 +69,48 @@
       </div>
 
       <div class="accordion-item">
-        <h2 class="accordion-header" id="headingTwo">
-          <button class="accordion-button bg-primary text-secondary @AdminNav.PublishersButtonTab(ViewContext)" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+        <h2 class="accordion-header" id="headingFour">
+          <button class="accordion-button bg-primary text-secondary @AdminNav.PublishersButtonTab(ViewContext)" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
             <span><i class="far fa-newspaper"></i> Publishers</span>
           </button>
         </h2>
-        <div id="collapseTwo" class="accordion-collapse collapse @AdminNav.PublishersNavClassTab(ViewContext)" aria-labelledby="headingTwo" data-bs-parent="#accordion">
+        <div id="collapseFour" class="accordion-collapse collapse @AdminNav.PublishersNavClassTab(ViewContext)" aria-labelledby="headingFour" data-bs-parent="#accordion">
           <div class="accordion-body">
             <a class="nav-link @AdminNav.UpdatePublisherBookNavClass(ViewContext)" asp-controller="Admin" asp-action="UpdatePublisherBook">
               <i class="fas fa-link"></i> Update publisher and book
+            </a>
+            <a class="nav-link @AdminNav.ViewAllPublishersNavClass(ViewContext)" asp-controller="Admin" asp-action="ViewAllPublishers">
+              <i class="fas fa-eye"></i> View all publishers
             </a>
             <a class="nav-link @AdminNav.AddPublisherNavClass(ViewContext)" asp-controller="Admin" asp-action="AddPublisher">
               <i class="fas fa-plus"></i> Add publisher
             </a>
             <a class="nav-link @AdminNav.DeletePublisherNavClass(ViewContext)" asp-controller="Admin" asp-action="DeletePublisher">
               <i class="fas fa-minus"></i> Delete publisher
+            </a>
+          </div>
+        </div>      
+       </div>
+
+        <div class="accordion-item">
+        <h2 class="accordion-header" id="headingFive">
+          <button class="accordion-button bg-primary text-secondary @AdminNav.GenresButtonTab(ViewContext)" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
+            <span><i class="fas fa-theater-masks"></i> Genres</span>
+          </button>
+        </h2>
+        <div id="collapseFive" class="accordion-collapse collapse @AdminNav.GenresNavClassTab(ViewContext)" aria-labelledby="headingFive" data-bs-parent="#accordion">
+          <div class="accordion-body">
+            <a class="nav-link @AdminNav.UpdateGenreBookNavClass(ViewContext)" asp-controller="Admin" asp-action="UpdateGenreBook">
+              <i class="fas fa-link"></i> Update genre and book
+            </a>
+            <a class="nav-link @AdminNav.ViewAllGenresNavClass(ViewContext)" asp-controller="Admin" asp-action="ViewAllGenres">
+              <i class="fas fa-eye"></i> View all genres
+            </a>
+            <a class="nav-link @AdminNav.AddGenreNavClass(ViewContext)" asp-controller="Admin" asp-action="AddGenre">
+              <i class="fas fa-plus"></i> Add genre
+            </a>
+            <a class="nav-link @AdminNav.DeleteGenreNavClass(ViewContext)" asp-controller="Admin" asp-action="DeleteGenre">
+              <i class="fas fa-minus"></i> Delete genre
             </a>
           </div>
         </div>      

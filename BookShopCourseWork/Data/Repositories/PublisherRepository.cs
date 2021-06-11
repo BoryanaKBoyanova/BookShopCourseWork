@@ -16,7 +16,11 @@ namespace BookShopCourseWork.Data.Repositories
         {
             context = new ApplicationDbContext();
         }
-        public bool AddPublisher(Publisher publisher)
+        public List<Publisher> GetAllPublishers()
+        {
+            return context.Publishers.ToList();
+        }
+        public bool AddPublisher(AddPublisher publisher)
         {
             if(context.Publishers.Any(p => p.PublisherName == publisher.PublisherName))
             {
@@ -24,7 +28,7 @@ namespace BookShopCourseWork.Data.Repositories
             }
             else
             {
-                context.Publishers.Add(publisher);
+                context.Publishers.Add(new Publisher(){PublisherName = publisher.PublisherName});
                 context.SaveChanges();
                 return true;
             }
@@ -50,31 +54,9 @@ namespace BookShopCourseWork.Data.Repositories
             Book b = context.Books.Find(publisherBook.BookId);
             if(p != null && b!= null)
             {
-                context.Entry(b).Collection("Authors").Load();
-                if(publisherBook.Operation=="addPublisher")
-                {
-                    b.Publisher = p;
-                    context.SaveChanges();
-                    return true;
-                }
-                else if(publisherBook.Operation=="removePublisher")
-                {
-                    context.Entry(p).Collection("Books").Load();
-                    if(p.Books.Contains(b))
-                    {
-                        p.Books.Remove(b);
-                        context.SaveChanges();
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-                else
-                {
-                    return false;
-                }
+                b.Publisher = p;
+                context.SaveChanges();
+                return true;
             }
             else
             {

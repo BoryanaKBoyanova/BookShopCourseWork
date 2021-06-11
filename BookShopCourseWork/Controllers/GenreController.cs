@@ -23,11 +23,19 @@ namespace BookShopCourseWork.Controllers
             genreService = new GenreService();
         }
         [HttpPost("AddGenre")]
-        public IActionResult AddGenre(Genre genre)
+        public IActionResult AddGenre(AddGenre genre)
         {
             if(ModelState.IsValid)
             {
-                return Ok(genreService.AddGenre(genre));
+                bool status = genreService.AddGenre(genre);
+                if (status)
+                {
+                    return RedirectToAction("Success", "Admin", new { message = "AddGenre" });
+                }
+                else
+                {
+                    return RedirectToAction("Failed", "Admin", new { message = "AddGenre" });
+                }
             }
             else
             {
@@ -39,7 +47,15 @@ namespace BookShopCourseWork.Controllers
         {
             if(ModelState.IsValid)
             {
-                return Ok(genreService.DeleteGenre(genre));
+                bool status = genreService.DeleteGenre(genre);
+                if (status)
+                {
+                    return RedirectToAction("Success", "Admin", new { message = "DeleteGenre" });
+                }
+                else
+                {
+                    return RedirectToAction("Failed", "Admin", new { message = "DeleteGenre" });
+                }
             }
             else
             {
@@ -51,7 +67,33 @@ namespace BookShopCourseWork.Controllers
         {
             if(ModelState.IsValid)
             {
-                return Ok(genreService.UpdateGenreBook(genreBook));
+                bool status = genreService.UpdateGenreBook(genreBook);
+                if (genreBook.Operation == "addGenre")
+                {
+                    if (status)
+                    {
+                        return RedirectToAction("Success", "Admin", new { message = "BookGenreConnected" });
+                    }
+                    else
+                    {
+                        return RedirectToAction("Failed", "Admin", new { message = "BookGenreConnected" });
+                    }
+                }
+                else if (genreBook.Operation == "removeGenre")
+                {
+                    if (status)
+                    {
+                        return RedirectToAction("Success", "Admin", new { message = "BookGenreDisconnected" });
+                    }
+                    else
+                    {
+                        return RedirectToAction("Failed", "Admin", new { message = "BookGenreDisconnected" });
+                    }
+                }
+                else
+                {
+                    return BadRequest();
+                }
             }
             else
             {
