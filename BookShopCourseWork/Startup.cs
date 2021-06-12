@@ -40,7 +40,7 @@ namespace BookShopCourseWork
                     builder => builder.RequireRole("Admin"));
             });
             services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false).AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders(); ;
+                .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
             services.AddScoped<IUserClaimsPrincipalFactory<User>, ApplicationUserClaimsPrincipalFactory>();
             services.AddControllersWithViews();
         }
@@ -85,7 +85,6 @@ namespace BookShopCourseWork
                 endpoints.MapControllerRoute(
                     name: "author",
                     pattern: "{controller=Author}/{action=Index}/{id?}");
-                endpoints.MapRazorPages();
                 endpoints.MapControllerRoute(
                     name: "publisher",
                     pattern: "{controller=Publisher}/{action=Index}/{id?}");

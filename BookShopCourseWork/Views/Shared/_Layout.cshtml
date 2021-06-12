@@ -14,8 +14,8 @@
     <script src="~/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/pages.js"></script>
     <script src="~/js/sortBooks.js"></script>
-    <script src="~/js/imgTest.js"></script>
     <script src="~/js/cart.js"></script>
+    <script src="~/js/search.js"></script>
     <script src="~/js/cookies.js"></script>
     <script src="~/js/extensionAlgorithms.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
@@ -37,12 +37,11 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home"
-                                asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Book"
                                 asp-action="ViewAllBooks" asp-route-page="1" asp-route-order="publishDescending">Books</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
                         </li>
                         <partial name="_AdminPanelPartial"/>
                     </ul>
@@ -51,15 +50,15 @@
             </div>
         </nav>
     </header>
-    <div class="container" style="margin-top: 120px;">
-        <main role="main" class="pb-3 flex-shrink-0" style="min-height: calc(100vh - 180px);">
+    <div class="container mb-3" style="margin-top: 120px;">
+        <main role="main" style="min-height: calc(100vh - 180px);">
             @RenderBody()
         </main>
     </div>
 
     <footer class="border-top footer text-muted text-center mt-auto py-3" style="height: 60px;">
         <div class="container">
-            &copy; 2021 - Book Shop - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2021 - Book Shop
         </div>
     </footer>
 </body>

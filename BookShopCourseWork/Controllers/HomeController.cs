@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using BookShopCourseWork.Services;
+using BookShopCourseWork.Services.Interfaces;
 using System.Threading.Tasks;
 
 namespace BookShopCourseWork.Controllers
@@ -13,18 +15,23 @@ namespace BookShopCourseWork.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private IBookService bookService;
 
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+            bookService = new BookService();
         }
 
         public IActionResult Index()
         {
-            return View();
+            List<Book> books = bookService.GetAllBooks();
+            books = books.OrderByDescending(b=> b.PublishedOn.Date).ToList();
+            books = books.Take(8).ToList();
+            return View(books);
         }
 
-        public IActionResult Privacy()
+        public IActionResult AboutUs()
         {
             return View();
         }

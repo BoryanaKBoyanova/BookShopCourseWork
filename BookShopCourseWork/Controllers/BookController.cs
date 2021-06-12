@@ -67,7 +67,7 @@ namespace BookShopCourseWork.Controllers
             }
         }
         [HttpGet("ViewAllBooks")]
-        public IActionResult ViewAllBooks([FromQuery] int page, [FromQuery] string order)
+        public IActionResult ViewAllBooks([FromQuery] int page, [FromQuery] string order, [FromQuery] string search)
         {
             if(page==0)
             {
@@ -78,6 +78,10 @@ namespace BookShopCourseWork.Controllers
                 return BadRequest();
             }
             List<Book> books = bookService.GetAllBooks();
+            if(search!=null)
+            {
+                books = books.Where(b=> b.Title.ToLower().Contains(search.ToLower())).ToList();
+            }
             switch(order)
             {
                 case "priceAscending":
@@ -108,6 +112,10 @@ namespace BookShopCourseWork.Controllers
                 return BadRequest();
             }
             int booksnum = page * 16;
+            if(books.Count == 0)
+            {
+                return View(new ViewBooksModel() { NumberOfBooks = 0});
+            }
             if(booksnum>books.Count)
             {
                 try
