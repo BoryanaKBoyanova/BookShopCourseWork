@@ -21,9 +21,14 @@ namespace BookShopCourseWork.Controllers
     public class BookController : Controller
     {
         private IBookService bookService { get; set; }
+
+        private IGenreService genreService { get; set; }
+        private IAuthorService authorService { get; set; }
         public BookController()
         {
             bookService = new BookService();
+            genreService = new GenreService();
+            authorService = new AuthorService();
         }
         [HttpGet("{id}")]
         public IActionResult Index([FromRoute] int id)
@@ -67,7 +72,7 @@ namespace BookShopCourseWork.Controllers
             }
         }
         [HttpGet("ViewAllBooks")]
-        public IActionResult ViewAllBooks([FromQuery] int page, [FromQuery] string order, [FromQuery] string search)
+        public IActionResult ViewAllBooks([FromQuery] int page, [FromQuery] string order, [FromQuery] string search, [FromQuery] string authors, [FromQuery] string genres)
         {
             if(page==0)
             {
@@ -77,10 +82,22 @@ namespace BookShopCourseWork.Controllers
             {
                 return BadRequest();
             }
+            List<Genre> genresList = genreService.GetAllGenres();
+            List<Author> authorsList = authorService.GetAllAuthors();
             List<Book> books = bookService.GetAllBooks();
             if(search!=null)
             {
                 books = books.Where(b=> b.Title.ToLower().Contains(search.ToLower())).ToList();
+            }
+            if(authors!=null)
+            {
+                List<int> authorsId = authors.Split(',').Select(Int32.Parse).ToList();
+                books = books.Where(b => b.Authors.Any(a=> authorsId.Contains(a.Id))).ToList();
+            }
+            if(genres!=null)
+            {
+                List<int> genresId = genres.Split(',').Select(Int32.Parse).ToList();
+                books = books.Where(b => b.Genres.Any(g=> genresId.Contains(g.Id))).ToList();
             }
             switch(order)
             {
@@ -114,7 +131,7 @@ namespace BookShopCourseWork.Controllers
             int booksnum = page * 16;
             if(books.Count == 0)
             {
-                return View(new ViewBooksModel() { NumberOfBooks = 0});
+                return View(new ViewBooksModel() { NumberOfBooks = 0, Authors = authorsList, Genres = genresList});
             }
             if(booksnum>books.Count)
             {
@@ -124,14 +141,14 @@ namespace BookShopCourseWork.Controllers
                     {
                         return NotFound();
                     }
-                    return View(new ViewBooksModel() { Books = books.GetRange(booksnum-16, books.Count-(booksnum-16)), NumberOfBooks = books.Count});
+                    return View(new ViewBooksModel() { Books = books.GetRange(booksnum-16, books.Count-(booksnum-16)), NumberOfBooks = books.Count, Authors = authorsList, Genres = genresList});
                 }
                 catch
                 {
                     return NotFound();
                 }
             }
-            return View(new ViewBooksModel() {Books = books.GetRange(booksnum-16, 16), NumberOfBooks = books.Count});
+            return View(new ViewBooksModel() {Books = books.GetRange(booksnum-16, 16), NumberOfBooks = books.Count, Authors = authorsList, Genres = genresList});
         }
         [Authorize(Policy = "adminOnly")] 
         [HttpPost("EditBook")]

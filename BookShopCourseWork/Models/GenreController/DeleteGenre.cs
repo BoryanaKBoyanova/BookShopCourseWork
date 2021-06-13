@@ -9,6 +9,7 @@ namespace BookShopCourseWork.Models.GenreController
     public class DeleteGenre
     {
         [Required]
+        [Display(Name = "Genre Id")]
         public int GenreId { get; set; }
        
     }

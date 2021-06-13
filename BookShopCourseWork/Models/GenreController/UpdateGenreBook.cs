@@ -9,12 +9,15 @@ namespace BookShopCourseWork.Models.GenreController
     public class UpdateGenreBook
     {
         [Required]
+        [Display(Name = "Genre Id")]
         public int GenreId { get; set; }
 
         [Required]
+        [Display(Name = "Book Id")]
         public int BookId { get; set; }
 
         [Required]
+        [Display(Name = "Operation")]
         public string Operation {get; set;}
        
     }
