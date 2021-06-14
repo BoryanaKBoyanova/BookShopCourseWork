@@ -170,7 +170,7 @@ function deleteFromShoppingCart(id) {
         let indexBook = binarySearchCart(cart, id);
         if(indexBook != -1)
         {
-            if (cart[index]["bookId"] == id) {
+            if (cart[indexBook]["bookId"] == id) {
                 cart.splice(indexBook, 1);
             }
             setCookie("cart", JSON.stringify(cart), 1);
